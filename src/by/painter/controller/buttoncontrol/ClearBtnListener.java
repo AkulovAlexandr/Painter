@@ -2,13 +2,12 @@ package by.painter.controller.buttoncontrol;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
-import by.painter.view.PaintCanva;
+import by.painter.view.PaintCanvas;
 import by.painter.view.Window;
 
 public class ClearBtnListener implements ButtonController {
 
-	private Window window;
-	private PaintCanva mainCanva;
+	private final Window window;
 
 	public ClearBtnListener(Window window) {
 		this.window = window;
@@ -16,12 +15,12 @@ public class ClearBtnListener implements ButtonController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		mainCanva = window.getMainCanva();
-		mainCanva.cleanCanvas();
-		mainCanva.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		if (mainCanva.getMouseListeners().length > 0) {
-			mainCanva.removeMouseListener(mainCanva.getMouseListeners()[0]);
-			mainCanva.removeMouseMotionListener(mainCanva.getMouseMotionListeners()[0]);
+		PaintCanvas mainCanvas = window.getMainCanvas();
+		mainCanvas.cleanCanvas();
+		mainCanvas.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		if (mainCanvas.getMouseListeners().length > 0) {
+			mainCanvas.removeMouseListener(mainCanvas.getMouseListeners()[0]);
+			mainCanvas.removeMouseMotionListener(mainCanvas.getMouseMotionListeners()[0]);
 		}
 	}
 

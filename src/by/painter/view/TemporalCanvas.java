@@ -6,15 +6,15 @@ import javax.swing.JLabel;
 
 import by.painter.controller.DrawingInstrument;
 
-public class TemporalCanva extends JLabel {
+public class TemporalCanvas extends JLabel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DrawingInstrument instr;
+	private final DrawingInstrument instr;
 
-	public TemporalCanva(DrawingInstrument instr) {
+	public TemporalCanvas(DrawingInstrument instr) {
 		this.instr = instr;
 	}
 

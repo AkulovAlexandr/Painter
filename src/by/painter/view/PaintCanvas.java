@@ -7,7 +7,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 
-public class PaintCanva extends JPanel {
+public class PaintCanvas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,11 +15,11 @@ public class PaintCanva extends JPanel {
 	private int currentWidth = 0;
 	private int currentHeight = 0;
 
-	public PaintCanva() {
+	public PaintCanvas() {
 		addComponentListener(new SizeTracker());
 	}
 
-	public PaintCanva(int startWidth, int startHeight) {
+	public PaintCanvas(int startWidth, int startHeight) {
 		extendCanvasTo(startWidth, startHeight);
 	}
 
@@ -89,8 +89,7 @@ public class PaintCanva extends JPanel {
 		}
 	}
 
-	public void setCursor(Cursor crosshairCursor) {
-		super.setCursor(crosshairCursor);
-
+	public void setCursor(Cursor cursor) {
+		super.setCursor(cursor);
 	}
 }

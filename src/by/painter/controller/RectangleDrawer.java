@@ -5,36 +5,34 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import by.painter.view.PaintCanva;
-import by.painter.view.TemporalCanva;
-import by.painter.view.Window;
+import by.painter.view.PaintCanvas;
+import by.painter.view.TemporalCanvas;
+import by.painter.view.Viewable;
 
 public class RectangleDrawer implements DrawingInstrument {
 
 	private int x1, y1, x2, y2;
-	private Window window;
-	private PaintCanva mainCanva;
-	private TemporalCanva temporalCanva;
-	private Graphics g;
-	private RectangleAdapter rectAdapter;
+	private final PaintCanvas mainCanvas;
+	private final TemporalCanvas temporalCanvas;
+	private final Graphics g;
+	private final MouseAdapter rectAdapter;
 
-	public RectangleDrawer(Window w) {
-		window = w;
-		mainCanva = window.getMainCanva();
-		g = mainCanva.createCanvasGraphics();
-		temporalCanva = new TemporalCanva(this);
+	public RectangleDrawer(Viewable w) {
+		mainCanvas = w.getMainCanvas();
+		g = mainCanvas.createCanvasGraphics();
+		temporalCanvas = new TemporalCanvas(this);
 		rectAdapter = new RectangleAdapter();
 	}
 
 	@Override
 	public void setUpDrawMethod() {
-		if (mainCanva.getMouseListeners().length > 0) {
-			mainCanva.removeMouseListener(mainCanva.getMouseListeners()[0]);
-			mainCanva.removeMouseMotionListener(mainCanva.getMouseMotionListeners()[0]);
+		if (mainCanvas.getMouseListeners().length > 0) {
+			mainCanvas.removeMouseListener(mainCanvas.getMouseListeners()[0]);
+			mainCanvas.removeMouseMotionListener(mainCanvas.getMouseMotionListeners()[0]);
 		}
-		mainCanva.addMouseListener(rectAdapter);
-		mainCanva.addMouseMotionListener(rectAdapter);
-		mainCanva.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		mainCanvas.addMouseListener(rectAdapter);
+		mainCanvas.addMouseMotionListener(rectAdapter);
+		mainCanvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	}
 
 	@Override
@@ -51,9 +49,9 @@ public class RectangleDrawer implements DrawingInstrument {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			temporalCanva.setBounds(mainCanva.getX() - 20, mainCanva.getY() - 23, mainCanva.getWidth(),
-					mainCanva.getHeight());
-			mainCanva.add(temporalCanva);
+			temporalCanvas.setBounds(mainCanvas.getX() - 20, mainCanvas.getY() - 23, mainCanvas.getWidth(),
+					mainCanvas.getHeight());
+			mainCanvas.add(temporalCanvas);
 			x1 = e.getX();
 			y1 = e.getY();
 		}
@@ -62,16 +60,16 @@ public class RectangleDrawer implements DrawingInstrument {
 		public void mouseDragged(MouseEvent e) {
 			x2 = e.getX();
 			y2 = e.getY();
-			temporalCanva.repaint();
+			temporalCanvas.repaint();
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			mainCanva.remove(temporalCanva);
+			mainCanvas.remove(temporalCanvas);
 			x2 = e.getX();
 			y2 = e.getY();
 			drawFigure(g);
-			mainCanva.repaint();
+			mainCanvas.repaint();
 		}
 	}
 }

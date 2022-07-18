@@ -1,15 +1,15 @@
 package by.painter.controller.buttoncontrol;
 
 import java.awt.event.ActionEvent;
-import by.painter.model.Instruments;
+import by.painter.model.Instrument;
 import by.painter.model.Painter;
 
 public class InstrumentBtnListener implements ButtonController {
 
-	private Painter model;
-	private Instruments instrument;
+	private final Painter model;
+	private final Instrument instrument;
 
-	public InstrumentBtnListener(Painter model, Instruments instrument) {
+	public InstrumentBtnListener(Painter model, Instrument instrument) {
 		this.model = model;
 		this.instrument = instrument;
 	}

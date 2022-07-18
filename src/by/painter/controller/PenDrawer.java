@@ -5,33 +5,34 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import by.painter.view.PaintCanva;
-import by.painter.view.Window;
+import by.painter.view.PaintCanvas;
+import by.painter.view.Viewable;
 
 public class PenDrawer implements DrawingInstrument {
 
 	private int x1, y1, x2, y2;
-	private Window window;
 	private Graphics g;
-	private PaintCanva mainCanva;
-	private PenAdapter penAdapter;
+	private PaintCanvas mainCanvas;
+	private MouseAdapter penAdapter;
 
-	public PenDrawer(Window w) {
-		window = w;
+	public PenDrawer(){
+
+	}
+	public PenDrawer(Viewable w) {
 		penAdapter = new PenAdapter();
-		mainCanva = window.getMainCanva();
-		g = mainCanva.createCanvasGraphics();
+		mainCanvas = w.getMainCanvas();
+		g = mainCanvas.createCanvasGraphics();
 	}
 
 	@Override
 	public void setUpDrawMethod() {
-		if (mainCanva.getMouseListeners().length > 0) {
-			mainCanva.removeMouseListener(mainCanva.getMouseListeners()[0]);
-			mainCanva.removeMouseMotionListener(mainCanva.getMouseMotionListeners()[0]);
+		if (mainCanvas.getMouseListeners().length > 0) {
+			mainCanvas.removeMouseListener(mainCanvas.getMouseListeners()[0]);
+			mainCanvas.removeMouseMotionListener(mainCanvas.getMouseMotionListeners()[0]);
 		}
-		mainCanva.addMouseListener(penAdapter);
-		mainCanva.addMouseMotionListener(penAdapter);
-		mainCanva.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		mainCanvas.addMouseListener(penAdapter);
+		mainCanvas.addMouseMotionListener(penAdapter);
+		mainCanvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class PenDrawer implements DrawingInstrument {
 			x1 = e.getX();
 			y1 = e.getY();
 			drawFigure(g);
-			mainCanva.repaint();
+			mainCanvas.repaint();
 		}
 
 	}
