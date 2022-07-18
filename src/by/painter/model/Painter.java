@@ -18,7 +18,6 @@ public class Painter {
     }
 
     public void start(Viewable w) {
-        w.setPainter(this);
         w.setVisible(true);
         createInstrumentsFor(w);
     }
@@ -32,9 +31,7 @@ public class Painter {
 
     public void setMainInstrument(Instrument instrument) {
         mainInstrument = instruments.get(instrument);
-        mainInstrument.setUpDrawMethod();
     }
-
 
     public DrawingInstrument getMainInstrument() {
         return mainInstrument;

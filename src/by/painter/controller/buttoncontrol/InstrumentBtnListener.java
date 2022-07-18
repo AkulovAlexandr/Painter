@@ -17,6 +17,7 @@ public class InstrumentBtnListener implements ButtonController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		model.setMainInstrument(instrument);
+		model.getMainInstrument().setUpDrawMethod();
 	}
 
 }

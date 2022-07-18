@@ -9,7 +9,7 @@ public interface Viewable {
 
     PaintCanvas getMainCanvas();
 
-    void setVisible(boolean b);
-
     void setPainter(Painter painter);
+
+    void setVisible(boolean b);
 }

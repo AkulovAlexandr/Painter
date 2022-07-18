@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8dd4a0a7-2c9a-4c7e-83f1-be4924b5f18a" name="Changes" comment="Publish the Painter app">
-      <change afterPath="$PROJECT_DIR$/src/by/painter/model/Instrument.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/Runner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/DrawingInstrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/DrawingInstrument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/PenDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/PenDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/RectangleDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/RectangleDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ClearBtnListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ClearBtnListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/InstrumentBtnListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/InstrumentBtnListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/model/Instruments.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/model/Painter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/model/Painter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/view/PaintCanva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/PaintCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/view/TemporalCanva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/TemporalCanvas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/view/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/Window.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,13 +30,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="by.painter.controller" />

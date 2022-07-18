@@ -32,7 +32,7 @@ public class Window extends JFrame implements Viewable {
         GroupLayout layout = new GroupLayout(getContentPane());
         mainCanvas = new PaintCanvas(800, 600);
         mainCanvas.setBackground(new Color(255, 255, 255));
-        GroupLayout canvaLayout = new GroupLayout(mainCanvas);
+        GroupLayout canvasLayout = new GroupLayout(mainCanvas);
         JMenuBar menuBar = new JMenuBar();
         JButton penBtn = new JButton();
         JButton rectBtn = new JButton();
@@ -58,11 +58,11 @@ public class Window extends JFrame implements Viewable {
         menuBar.add(clearBtn);
         setJMenuBar(menuBar);
 
-        mainCanvas.setLayout(canvaLayout);
-        canvaLayout.setHorizontalGroup(
-                canvaLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 800, Short.MAX_VALUE));
-        canvaLayout.setVerticalGroup(
-                canvaLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 600, Short.MAX_VALUE));
+        mainCanvas.setLayout(canvasLayout);
+        canvasLayout.setHorizontalGroup(
+                canvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 800, Short.MAX_VALUE));
+        canvasLayout.setVerticalGroup(
+                canvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 600, Short.MAX_VALUE));
 
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -88,7 +88,4 @@ public class Window extends JFrame implements Viewable {
         this.painter = painter;
     }
 
-    public void setVisible(Boolean bool) {
-        super.setVisible(bool);
-    }
 }
