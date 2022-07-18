@@ -1,14 +1,18 @@
 package by.painter.model;
 
 import by.painter.controller.DrawingInstrument;
+import by.painter.controller.FillRectangleDrawer;
 import by.painter.controller.PenDrawer;
 import by.painter.controller.RectangleDrawer;
 import by.painter.view.Viewable;
 
+import java.awt.*;
 import java.util.*;
 
 public class Painter {
 
+    private final Color defaultColor = Color.BLACK;
+    private Color instrumentColor;
     private DrawingInstrument mainInstrument;
     private final Map<Instrument, DrawingInstrument> instruments;
 
@@ -23,9 +27,12 @@ public class Painter {
 
     private void createInstrumentsFor(Viewable w) {
         PenDrawer pen = new PenDrawer(w);
+        mainInstrument = pen;
         RectangleDrawer rectangle = new RectangleDrawer(w);
+        FillRectangleDrawer fillRectangle = new FillRectangleDrawer(w);
         instruments.put(Instrument.PEN, pen);
         instruments.put(Instrument.RECTANGLE, rectangle);
+        instruments.put(Instrument.FILL_RECTANGLE, fillRectangle);
     }
 
     public void setMainInstrument(Instrument instrument) {
@@ -34,6 +41,14 @@ public class Painter {
 
     public DrawingInstrument getMainInstrument() {
         return mainInstrument;
+    }
+
+    public Color getInstrumentColor() {
+        return instrumentColor == null ? defaultColor : instrumentColor;
+    }
+
+    public void setInstrumentColor(Color color) {
+        instrumentColor = color;
     }
 
 }

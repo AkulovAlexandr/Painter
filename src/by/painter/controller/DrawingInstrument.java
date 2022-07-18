@@ -1,10 +1,14 @@
 package by.painter.controller;
 
+import by.painter.model.Painter;
 import by.painter.view.PaintCanvas;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 
 public abstract class DrawingInstrument {
+
+    protected Painter painter;
     protected PaintCanvas mainCanvas;
     protected MouseAdapter adapter;
 
@@ -21,4 +25,5 @@ public abstract class DrawingInstrument {
     public void drawFigure(Graphics g) {
 
     }
+
 }

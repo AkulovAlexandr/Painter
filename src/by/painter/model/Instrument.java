@@ -2,6 +2,7 @@ package by.painter.model;
 
 public enum Instrument {
 
-    PEN, RECTANGLE
+    PEN, RECTANGLE, CIRCLE, FILL_CIRCLE, TRIANGLE, FILL_TRIANGLE, TEXT, LASTIC, PAINTBRUSH, LINE, FILLER, FILL_RECTANGLE
 
 }
+

@@ -17,6 +17,7 @@ public class PaintCanvas extends JPanel {
 
     public PaintCanvas() {
         addComponentListener(new SizeTracker());
+        this.setBackground(new Color(255, 255, 255));
     }
 
     public void extendCanvasTo(int newWidth, int newHeight) {

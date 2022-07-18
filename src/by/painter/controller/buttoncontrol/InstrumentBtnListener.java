@@ -5,13 +5,12 @@ import java.awt.event.ActionEvent;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
 
-public class InstrumentBtnListener implements ButtonController {
+public class InstrumentBtnListener extends ButtonController {
 
-    private final Painter model;
     private final Instrument instrument;
 
     public InstrumentBtnListener(Painter model, Instrument instrument) {
-        this.model = model;
+        super.model = model;
         this.instrument = instrument;
     }
 
