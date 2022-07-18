@@ -13,11 +13,12 @@ public class PenDrawer extends DrawingInstrument {
     public PenDrawer(Viewable w) {
         super.adapter = new PenAdapter();
         super.mainCanvas = w.getMainCanvas();
+        super.painter = w.getPainter();
     }
 
     @Override
     public void drawFigure(Graphics g) {
-        g.setColor(Color.BLACK);
+        g.setColor(painter.getInstrumentColor());
         g.drawLine(x1, y1, x2, y2);
         x2 = x1;
         y2 = y1;

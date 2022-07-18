@@ -4,14 +4,12 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 
 import by.painter.view.PaintCanvas;
-import by.painter.view.Window;
+import by.painter.view.Viewable;
 
-public class ClearBtnListener implements ButtonController {
+public class ClearBtnListener extends ButtonController {
 
-    private final Window window;
-
-    public ClearBtnListener(Window window) {
-        this.window = window;
+    public ClearBtnListener(Viewable window) {
+        super.window = window;
     }
 
     @Override
