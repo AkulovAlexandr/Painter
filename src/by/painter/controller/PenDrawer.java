@@ -1,13 +1,9 @@
 package by.painter.controller;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
+import by.painter.view.Viewable;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import by.painter.view.PaintCanvas;
-import by.painter.view.Viewable;
 
 public class PenDrawer extends DrawingInstrument {
 

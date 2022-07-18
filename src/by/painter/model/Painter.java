@@ -4,7 +4,6 @@ import by.painter.controller.DrawingInstrument;
 import by.painter.controller.PenDrawer;
 import by.painter.controller.RectangleDrawer;
 import by.painter.view.Viewable;
-import by.painter.view.Window;
 
 import java.util.*;
 

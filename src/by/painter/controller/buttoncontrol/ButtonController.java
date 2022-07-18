@@ -5,6 +5,6 @@ import java.awt.event.ActionListener;
 
 public interface ButtonController extends ActionListener {
 
-	public void actionPerformed(ActionEvent e);
+    void actionPerformed(ActionEvent e);
 
 }

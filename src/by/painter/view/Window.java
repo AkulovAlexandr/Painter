@@ -30,7 +30,7 @@ public class Window extends JFrame implements Viewable {
         setBackground(new Color(255, 255, 255));
 
         GroupLayout layout = new GroupLayout(getContentPane());
-        mainCanvas = new PaintCanvas(800, 600);
+        mainCanvas = new PaintCanvas();
         mainCanvas.setBackground(new Color(255, 255, 255));
         GroupLayout canvasLayout = new GroupLayout(mainCanvas);
         JMenuBar menuBar = new JMenuBar();

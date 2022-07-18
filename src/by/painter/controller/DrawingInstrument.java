@@ -1,8 +1,6 @@
 package by.painter.controller;
 
 import by.painter.view.PaintCanvas;
-import by.painter.view.TemporalCanvas;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 

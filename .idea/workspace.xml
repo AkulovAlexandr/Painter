@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8dd4a0a7-2c9a-4c7e-83f1-be4924b5f18a" name="Changes" comment="Publish the Painter app">
+    <list default="true" id="8dd4a0a7-2c9a-4c7e-83f1-be4924b5f18a" name="Changes" comment="V0.3 Improving MVC Structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/DrawingInstrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/DrawingInstrument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/PenDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/PenDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/RectangleDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/RectangleDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/InstrumentBtnListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/InstrumentBtnListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ButtonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ButtonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/painter/model/Instrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/model/Instrument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/model/Painter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/model/Painter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/painter/view/PaintCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/PaintCanvas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/view/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/Window.java" afterDir="false" />
     </list>
@@ -74,6 +76,14 @@
       <updated>1658069594785</updated>
       <workItem from="1658157617717" duration="2475000" />
     </task>
+    <task id="LOCAL-00001" summary="V0.3 Improving MVC Structure">
+      <created>1658164702441</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1658164702441</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,10 +94,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/V0.3" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="V0.3 Improving MVC Structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="V0.3 Improving MVC Structure" />
   </component>
 </project>
