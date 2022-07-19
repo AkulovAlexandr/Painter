@@ -1,9 +1,6 @@
 package by.painter.model;
 
-import by.painter.controller.DrawingInstrument;
-import by.painter.controller.FillRectangleDrawer;
-import by.painter.controller.PenDrawer;
-import by.painter.controller.RectangleDrawer;
+import by.painter.controller.*;
 import by.painter.view.Viewable;
 
 import java.awt.*;
@@ -30,9 +27,13 @@ public class Painter {
         mainInstrument = pen;
         RectangleDrawer rectangle = new RectangleDrawer(w);
         FillRectangleDrawer fillRectangle = new FillRectangleDrawer(w);
+        CircleDrawer circle = new CircleDrawer(w);
+        FillCircleDrawer fillCircle = new FillCircleDrawer(w);
         instruments.put(Instrument.PEN, pen);
         instruments.put(Instrument.RECTANGLE, rectangle);
         instruments.put(Instrument.FILL_RECTANGLE, fillRectangle);
+        instruments.put(Instrument.CIRCLE, circle);
+        instruments.put(Instrument.FILL_CIRCLE, fillCircle);
     }
 
     public void setMainInstrument(Instrument instrument) {
