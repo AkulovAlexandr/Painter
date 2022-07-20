@@ -18,7 +18,7 @@ public class Window extends JFrame implements Viewable {
 
     public Window(Painter painter) {
         this.painter = painter;
-        initElements("Painter 0.4 NEW VIEW");
+        initElements("Painter 0.5 New Instruments");
     }
 
     @Override
@@ -91,6 +91,7 @@ public class Window extends JFrame implements Viewable {
         lineBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.LINE));
 
         fillBtn.setText("🌢");
+        fillBtn.setEnabled(false);
         fillBtn.setCursor(handCursor);
         fillBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILLER));
 
@@ -122,7 +123,7 @@ public class Window extends JFrame implements Viewable {
         triangleFilledBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILL_TRIANGLE));
 
         textBtn.setText("A");
-        textBtn.setCursor(handCursor);
+        textBtn.setEnabled(false);
         textBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.TEXT));
 
         clearBtn.setText("⏏");

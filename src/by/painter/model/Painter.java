@@ -25,15 +25,23 @@ public class Painter {
     private void createInstrumentsFor(Viewable w) {
         PenDrawer pen = new PenDrawer(w);
         mainInstrument = pen;
+        PaintbrushDrawer paintBrush = new PaintbrushDrawer(w);
+        LineDrawer line = new LineDrawer(w);
         RectangleDrawer rectangle = new RectangleDrawer(w);
         FillRectangleDrawer fillRectangle = new FillRectangleDrawer(w);
         CircleDrawer circle = new CircleDrawer(w);
         FillCircleDrawer fillCircle = new FillCircleDrawer(w);
+        TriangleDrawer triangle = new TriangleDrawer(w);
+        TriangleDrawer fillTriangle = new FillTriangleDrawer(w);
         instruments.put(Instrument.PEN, pen);
+        instruments.put(Instrument.PAINTBRUSH, paintBrush);
+        instruments.put(Instrument.LINE, line);
         instruments.put(Instrument.RECTANGLE, rectangle);
         instruments.put(Instrument.FILL_RECTANGLE, fillRectangle);
         instruments.put(Instrument.CIRCLE, circle);
         instruments.put(Instrument.FILL_CIRCLE, fillCircle);
+        instruments.put(Instrument.TRIANGLE, triangle);
+        instruments.put(Instrument.FILL_TRIANGLE, fillTriangle);
     }
 
     public void setMainInstrument(Instrument instrument) {
