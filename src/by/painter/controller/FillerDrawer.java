@@ -1,48 +1,42 @@
 package by.painter.controller;
 
+import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
-public class PenDrawer extends DrawingInstrument {
+public class FillerDrawer extends DrawingInstrument {
 
-    protected int x1, y1, x2, y2;
+    protected int x1, y1;
     protected Graphics g;
 
-    public PenDrawer(Viewable w) {
-        super.adapter = new PenAdapter();
+    public FillerDrawer(Viewable w) {
         super.mainCanvas = w.getMainCanvas();
+        super.adapter = new FillerAdapter();
         super.painter = w.getPainter();
     }
 
     @Override
     public void drawFigure(Graphics g) {
-        g.setColor(painter.getInstrumentColor());
-        g.drawLine(x1, y1, x2, y2);
-        x2 = x1;
-        y2 = y1;
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(painter.getInstrumentColor());
+
     }
 
-    private class PenAdapter extends MouseAdapter {
+    private class FillerAdapter extends MouseAdapter {
 
         @Override
         public void mousePressed(MouseEvent e) {
             g = mainCanvas.createCanvasGraphics();
             x1 = e.getX();
             y1 = e.getY();
-            x2 = x1;
-            y2 = y1;
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            x1 = e.getX();
-            y1 = e.getY();
-            drawFigure(g);
             mainCanvas.repaint();
         }
-
     }
-
 }

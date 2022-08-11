@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8dd4a0a7-2c9a-4c7e-83f1-be4924b5f18a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/flatlaf_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/flatlaf-2.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/FillRectangleDrawer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ColorBtnListener.java" afterDir="false" />
+    <list default="true" id="8dd4a0a7-2c9a-4c7e-83f1-be4924b5f18a" name="Changes" comment="Add new instruments: circle, fill_circle">
+      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/FillTriangleDrawer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/FillerDrawer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/LineDrawer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/PaintbrushDrawer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/by/painter/controller/TriangleDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Painter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Painter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/Runner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/DrawingInstrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/DrawingInstrument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/CircleDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/CircleDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/controller/PenDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/PenDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/RectangleDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/RectangleDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ButtonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ButtonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ClearBtnListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/ClearBtnListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/InstrumentBtnListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/controller/buttoncontrol/InstrumentBtnListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/model/Instrument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/model/Instrument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/model/Painter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/model/Painter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/view/PaintCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/PaintCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/Viewable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/painter/view/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/painter/view/Window.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,16 +29,13 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="V0.3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2C4lAC9wTGFtcUL0sCSIJbo2GS5" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -56,17 +45,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="by.painter.controller" />
@@ -90,7 +76,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Runner" />
-        <item itemvalue="Application.Runner" />
       </list>
     </recent_temporary>
   </component>
@@ -103,6 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1658069594785</updated>
       <workItem from="1658157617717" duration="2475000" />
+      <workItem from="1658340285889" duration="8817000" />
     </task>
     <task id="LOCAL-00001" summary="V0.3 Improving MVC Structure">
       <created>1658164702441</created>
@@ -141,7 +127,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="V0.3 Improving MVC Structure" />
     <option name="LAST_COMMIT_MESSAGE" value="V0.3 Improving MVC Structure" />
   </component>
