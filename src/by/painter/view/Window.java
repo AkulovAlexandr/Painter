@@ -2,13 +2,12 @@ package by.painter.view;
 
 import by.painter.controller.buttoncontrol.ClearBtnListener;
 import by.painter.controller.buttoncontrol.ColorBtnListener;
+import by.painter.controller.buttoncontrol.FileSaver;
 import by.painter.controller.buttoncontrol.InstrumentBtnListener;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
-
 import javax.swing.*;
 import java.awt.*;
-
 
 public class Window extends JFrame implements Viewable {
 
@@ -294,6 +293,7 @@ public class Window extends JFrame implements Viewable {
 
         fileSave.setText("Сохранить");
         fileSave.setCursor(handCursor);
+        fileSave.addActionListener(new FileSaver(this));
 
         menuFile.add(fileOpen);
         menuFile.add(fileSave);

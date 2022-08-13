@@ -20,6 +20,10 @@ public class PaintCanvas extends JPanel {
         this.setBackground(new Color(255, 255, 255));
     }
 
+    public BufferedImage getOffscreen() {
+        return offscreen;
+    }
+
     public void extendCanvasTo(int newWidth, int newHeight) {
         int oldW = currentWidth;
         int oldH = currentHeight;
