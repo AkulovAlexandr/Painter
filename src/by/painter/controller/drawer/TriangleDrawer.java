@@ -1,35 +1,35 @@
-package by.painter.controller;
+package by.painter.controller.drawer;
 
+import by.painter.controller.DrawingInstrument;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RectangleDrawer extends DrawingInstrument {
+public class TriangleDrawer extends DrawingInstrument {
 
-    protected int x1, y1, x2, y2;
+    protected int x1, y1, x2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public RectangleDrawer(Viewable w) {
+    public TriangleDrawer(Viewable w) {
         super.mainCanvas = w.getMainCanvas();
-        super.adapter = new RectangleAdapter();
+        super.adapter = new TriangleAdapter();
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
     @Override
     public void drawFigure(Graphics g) {
-        int px = Math.min(x1, x2);
-        int py = Math.min(y1, y2);
-        int pw = Math.abs(x1 - x2);
-        int ph = Math.abs(y1 - y2);
+        int px = Math.abs((x1 + x2) / 2);
+        int py = y1 - (x2 - x1);
         g.setColor(painter.getInstrumentColor());
-        g.drawRect(px, py, pw, ph);
+        g.drawPolygon(new int[]{x1, x2, px}, new int[]{y1, y1, py}, 3);
     }
 
-    private class RectangleAdapter extends MouseAdapter {
+    private class TriangleAdapter extends MouseAdapter {
 
         @Override
         public void mousePressed(MouseEvent e) {
@@ -44,7 +44,6 @@ public class RectangleDrawer extends DrawingInstrument {
         @Override
         public void mouseDragged(MouseEvent e) {
             x2 = e.getX();
-            y2 = e.getY();
             temporalCanvas.repaint();
         }
 
@@ -52,7 +51,6 @@ public class RectangleDrawer extends DrawingInstrument {
         public void mouseReleased(MouseEvent e) {
             mainCanvas.remove(temporalCanvas);
             x2 = e.getX();
-            y2 = e.getY();
             drawFigure(g);
             mainCanvas.repaint();
         }

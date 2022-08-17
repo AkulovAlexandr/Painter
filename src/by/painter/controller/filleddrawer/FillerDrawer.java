@@ -1,15 +1,11 @@
-package by.painter.controller;
+package by.painter.controller.filleddrawer;
 
-import by.painter.view.TemporalCanvas;
+import by.painter.controller.DrawingInstrument;
 import by.painter.view.Viewable;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 public class FillerDrawer extends DrawingInstrument {
 

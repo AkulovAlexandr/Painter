@@ -1,11 +1,9 @@
 package by.painter.view;
 
-import by.painter.controller.buttoncontrol.ClearBtnListener;
-import by.painter.controller.buttoncontrol.ColorBtnListener;
-import by.painter.controller.buttoncontrol.FileSaver;
-import by.painter.controller.buttoncontrol.InstrumentBtnListener;
+import by.painter.controller.buttoncontrol.*;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,7 +15,7 @@ public class Window extends JFrame implements Viewable {
 
     public Window(Painter painter) {
         this.painter = painter;
-        initElements("Painter 0.5 New Instruments");
+        initElements("Painter 0.6 (save\\load files)");
     }
 
     @Override
@@ -290,10 +288,11 @@ public class Window extends JFrame implements Viewable {
 
         fileOpen.setText("Открыть");
         fileOpen.setCursor(handCursor);
+        fileOpen.addActionListener(new OpenItemListener(this));
 
         fileSave.setText("Сохранить");
         fileSave.setCursor(handCursor);
-        fileSave.addActionListener(new FileSaver(this));
+        fileSave.addActionListener(new SaveItemListener(this));
 
         menuFile.add(fileOpen);
         menuFile.add(fileSave);
@@ -354,5 +353,15 @@ public class Window extends JFrame implements Viewable {
     @Override
     public void setPainter(Painter painter) {
         this.painter = painter;
+    }
+
+    @Override
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Ошибка!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public int showConfirmDialog(String message, String title) {
+        return JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
     }
 }

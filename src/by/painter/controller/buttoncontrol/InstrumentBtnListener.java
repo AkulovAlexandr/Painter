@@ -2,6 +2,7 @@ package by.painter.controller.buttoncontrol;
 
 import java.awt.event.ActionEvent;
 
+import by.painter.controller.ButtonController;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
 

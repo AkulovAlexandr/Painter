@@ -1,5 +1,6 @@
-package by.painter.controller;
+package by.painter.controller.filleddrawer;
 
+import by.painter.controller.drawer.TriangleDrawer;
 import by.painter.view.Viewable;
 
 import java.awt.*;

@@ -1,5 +1,6 @@
-package by.painter.controller;
+package by.painter.controller.drawer;
 
+import by.painter.controller.DrawingInstrument;
 import by.painter.view.Viewable;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

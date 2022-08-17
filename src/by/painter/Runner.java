@@ -13,7 +13,7 @@ public class Runner {
 
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
 

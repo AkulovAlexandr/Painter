@@ -1,6 +1,10 @@
 package by.painter.model;
 
-import by.painter.controller.*;
+import by.painter.controller.DrawingInstrument;
+import by.painter.controller.drawer.*;
+import by.painter.controller.filleddrawer.FillCircleDrawer;
+import by.painter.controller.filleddrawer.FillRectangleDrawer;
+import by.painter.controller.filleddrawer.FillTriangleDrawer;
 import by.painter.view.Viewable;
 
 import java.awt.*;

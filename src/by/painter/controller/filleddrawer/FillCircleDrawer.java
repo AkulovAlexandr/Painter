@@ -1,12 +1,13 @@
-package by.painter.controller;
+package by.painter.controller.filleddrawer;
 
+import by.painter.controller.drawer.CircleDrawer;
 import by.painter.view.Viewable;
 
 import java.awt.*;
 
-public class FillRectangleDrawer extends RectangleDrawer {
+public class FillCircleDrawer extends CircleDrawer {
 
-    public FillRectangleDrawer(Viewable w) {
+    public FillCircleDrawer(Viewable w) {
         super(w);
     }
 
@@ -17,6 +18,6 @@ public class FillRectangleDrawer extends RectangleDrawer {
         int pw = Math.abs(x1 - x2);
         int ph = Math.abs(y1 - y2);
         g.setColor(painter.getInstrumentColor());
-        g.fillRect(px, py, pw, ph);
+        g.fillOval(px, py, pw, ph);
     }
 }

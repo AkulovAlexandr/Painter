@@ -1,5 +1,6 @@
 package by.painter.controller.buttoncontrol;
 
+import by.painter.controller.ButtonController;
 import by.painter.view.Viewable;
 import javax.swing.*;
 import java.awt.*;

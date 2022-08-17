@@ -17,4 +17,7 @@ public interface Viewable {
 
     void setVisible(boolean b);
 
+    void showError(String message);
+
+    int showConfirmDialog(String message, String title);
 }

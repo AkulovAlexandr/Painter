@@ -24,6 +24,10 @@ public class PaintCanvas extends JPanel {
         return offscreen;
     }
 
+    public void setOffscreen(BufferedImage offscreen) {
+        this.offscreen = offscreen;
+    }
+
     public void extendCanvasTo(int newWidth, int newHeight) {
         int oldW = currentWidth;
         int oldH = currentHeight;

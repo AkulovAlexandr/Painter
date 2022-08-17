@@ -1,4 +1,4 @@
-package by.painter.controller.buttoncontrol;
+package by.painter.controller;
 
 import by.painter.model.Painter;
 import by.painter.view.Viewable;

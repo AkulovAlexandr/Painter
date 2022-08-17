@@ -1,5 +1,6 @@
-package by.painter.controller;
+package by.painter.controller.drawer;
 
+import by.painter.controller.DrawingInstrument;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
 
@@ -7,29 +8,30 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LineDrawer extends DrawingInstrument {
+public class CircleDrawer extends DrawingInstrument {
 
     protected int x1, y1, x2, y2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public LineDrawer(Viewable w) {
+    public CircleDrawer(Viewable w) {
         super.mainCanvas = w.getMainCanvas();
-        super.adapter = new LineAdapter();
+        super.adapter = new CircleAdapter();
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
     @Override
     public void drawFigure(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(new BasicStroke(1.0f, 1, 1));
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(painter.getInstrumentColor());
-        g2d.drawLine(x1, y1, x2, y2);
+        int px = Math.min(x1, x2);
+        int py = Math.min(y1, y2);
+        int pw = Math.abs(x1 - x2);
+        int ph = Math.abs(y1 - y2);
+        g.setColor(painter.getInstrumentColor());
+        g.drawOval(px, py, pw, ph);
     }
 
-    private class LineAdapter extends MouseAdapter {
+    private class CircleAdapter extends MouseAdapter {
 
         @Override
         public void mousePressed(MouseEvent e) {
