@@ -3,7 +3,6 @@ package by.painter.controller.buttoncontrol;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 
-import by.painter.controller.ButtonController;
 import by.painter.view.PaintCanvas;
 import by.painter.view.Viewable;
 

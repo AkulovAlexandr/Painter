@@ -1,6 +1,6 @@
 package by.painter.controller.drawer;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.view.PaintCanvas;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
 
@@ -15,8 +15,7 @@ public class LineDrawer extends DrawingInstrument {
     protected Graphics g;
 
     public LineDrawer(Viewable w) {
-        super.mainCanvas = w.getMainCanvas();
-        super.adapter = new LineAdapter();
+        super.adapter = new LineAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
@@ -31,7 +30,11 @@ public class LineDrawer extends DrawingInstrument {
     }
 
     private class LineAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
 
+        private LineAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
         @Override
         public void mousePressed(MouseEvent e) {
             g = mainCanvas.createCanvasGraphics();

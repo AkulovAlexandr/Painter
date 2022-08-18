@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.controller.drawer.DrawingInstrument;
 
 public class TemporalCanvas extends JLabel {
 

@@ -1,7 +1,8 @@
 package by.painter.controller.drawer;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.view.PaintCanvas;
 import by.painter.view.Viewable;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,8 +13,7 @@ public class PenDrawer extends DrawingInstrument {
     protected Graphics g;
 
     public PenDrawer(Viewable w) {
-        super.adapter = new PenAdapter();
-        super.mainCanvas = w.getMainCanvas();
+        super.adapter = new PenAdapter(w);
         super.painter = w.getPainter();
     }
 
@@ -26,6 +26,11 @@ public class PenDrawer extends DrawingInstrument {
     }
 
     private class PenAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
+
+        private PenAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {

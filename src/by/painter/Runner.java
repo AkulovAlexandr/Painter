@@ -10,16 +10,19 @@ import javax.swing.*;
 public class Runner {
 
     public static void main(String[] args) {
+        initializeLookAndFeel();
+        Painter mainProgram = new Painter();
+        Viewable window = new Window(mainProgram);
+        mainProgram.setWindow(window);
+        mainProgram.start();
+    }
 
+    private static void initializeLookAndFeel() {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
-
-        Painter mainProgram = new Painter();
-        Viewable gui = new Window(mainProgram);
-        mainProgram.start(gui);
     }
 
 }

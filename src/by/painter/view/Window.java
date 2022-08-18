@@ -12,6 +12,7 @@ public class Window extends JFrame implements Viewable {
     private Painter painter;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
+    private FileChooser fileChooser;
 
     public Window(Painter painter) {
         this.painter = painter;
@@ -19,9 +20,20 @@ public class Window extends JFrame implements Viewable {
     }
 
     @Override
+    public void saveImage() {
+        fileChooser.save();
+    }
+
+    @Override
+    public void loadImage() {
+        fileChooser.load();
+    }
+
+    @Override
     public void initElements(String name) {
         this.setTitle(name);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fileChooser = new LocaledFileChooser(this);
         mainCanvas = new PaintCanvas();
         colorPreview = new JToolBar();
         JScrollPane scrollPane = new JScrollPane();
@@ -129,7 +141,6 @@ public class Window extends JFrame implements Viewable {
 
         colorPreview.setBackground(Color.black);
         colorPreview.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        colorPreview.setRollover(true);
 
         blackBtn.setBackground(Color.black);
         blackBtn.setCursor(handCursor);
@@ -333,6 +344,8 @@ public class Window extends JFrame implements Viewable {
         );
 
         pack();
+        setVisible(true);
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package by.painter.controller.drawer;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.view.PaintCanvas;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
 
@@ -15,8 +15,7 @@ public class TriangleDrawer extends DrawingInstrument {
     protected Graphics g;
 
     public TriangleDrawer(Viewable w) {
-        super.mainCanvas = w.getMainCanvas();
-        super.adapter = new TriangleAdapter();
+        super.adapter = new TriangleAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
@@ -30,6 +29,11 @@ public class TriangleDrawer extends DrawingInstrument {
     }
 
     private class TriangleAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
+
+        private TriangleAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {

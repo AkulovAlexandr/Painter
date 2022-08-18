@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 public class PaintCanvas extends JPanel {
 
     private static final long serialVersionUID = 1L;
-
     private BufferedImage offscreen = null;
     private int currentWidth = 0;
     private int currentHeight = 0;

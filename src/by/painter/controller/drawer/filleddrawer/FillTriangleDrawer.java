@@ -1,4 +1,4 @@
-package by.painter.controller.filleddrawer;
+package by.painter.controller.drawer.filleddrawer;
 
 import by.painter.controller.drawer.TriangleDrawer;
 import by.painter.view.Viewable;

@@ -1,8 +1,9 @@
 package by.painter.controller.drawer;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.view.PaintCanvas;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,8 +15,7 @@ public class RectangleDrawer extends DrawingInstrument {
     protected Graphics g;
 
     public RectangleDrawer(Viewable w) {
-        super.mainCanvas = w.getMainCanvas();
-        super.adapter = new RectangleAdapter();
+        super.adapter = new RectangleAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
@@ -31,6 +31,11 @@ public class RectangleDrawer extends DrawingInstrument {
     }
 
     private class RectangleAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
+
+        private RectangleAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {

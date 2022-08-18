@@ -1,6 +1,6 @@
 package by.painter.controller.drawer;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.view.PaintCanvas;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
 
@@ -15,8 +15,7 @@ public class CircleDrawer extends DrawingInstrument {
     protected Graphics g;
 
     public CircleDrawer(Viewable w) {
-        super.mainCanvas = w.getMainCanvas();
-        super.adapter = new CircleAdapter();
+        super.adapter = new CircleAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
@@ -32,6 +31,11 @@ public class CircleDrawer extends DrawingInstrument {
     }
 
     private class CircleAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
+
+        private CircleAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {
