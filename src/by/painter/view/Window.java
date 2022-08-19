@@ -3,9 +3,9 @@ package by.painter.view;
 import by.painter.controller.buttoncontrol.*;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
-
 import javax.swing.*;
 import java.awt.*;
+import static javax.swing.ScrollPaneConstants.*;
 
 public class Window extends JFrame implements Viewable {
 
@@ -75,14 +75,15 @@ public class Window extends JFrame implements Viewable {
         mainCanvas.setLayout(mainCanvasLayout);
         mainCanvasLayout.setHorizontalGroup(
                 mainCanvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 770, Short.MAX_VALUE)
+                        .addGap(0, 800, Short.MAX_VALUE)
         );
         mainCanvasLayout.setVerticalGroup(
                 mainCanvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 561, Short.MAX_VALUE)
+                        .addGap(0, 600, Short.MAX_VALUE)
         );
 
         scrollPane.setViewportView(mainCanvas);
+
 
         panelName.setText("Инструменты");
         colorChooserName.setText("Палитра");
@@ -331,7 +332,7 @@ public class Window extends JFrame implements Viewable {
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(toolsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                                 .addContainerGap())
         );
         layout.setVerticalGroup(

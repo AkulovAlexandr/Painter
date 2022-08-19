@@ -16,7 +16,7 @@ public class PaintCanvas extends JPanel {
 
     public PaintCanvas() {
         addComponentListener(new SizeTracker());
-        this.setBackground(new Color(255, 255, 255));
+        setBackground(new Color(255, 255, 255));
     }
 
     public BufferedImage getOffscreen() {
@@ -72,12 +72,22 @@ public class PaintCanvas extends JPanel {
 
         @Override
         public void componentShown(ComponentEvent e) {
-            extendCanvasTo(getWidth(), getHeight());
+            e.getComponent().setPreferredSize(new Dimension(currentWidth, currentHeight));
+            if (offscreen == null) {
+                extendCanvasTo(getWidth(), getHeight());
+            } else {
+                extendCanvasTo(offscreen.getWidth(), offscreen.getHeight());
+            }
         }
 
         @Override
         public void componentResized(ComponentEvent e) {
-            extendCanvasTo(getWidth(), getHeight());
+            e.getComponent().setPreferredSize(new Dimension(currentWidth, currentHeight));
+            if (offscreen == null) {
+                extendCanvasTo(getWidth(), getHeight());
+            } else {
+                extendCanvasTo(offscreen.getWidth(), offscreen.getHeight());
+            }
         }
     }
 
