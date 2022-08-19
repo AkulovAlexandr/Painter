@@ -4,13 +4,10 @@ import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
-import by.painter.controller.DrawingInstrument;
+import by.painter.controller.drawer.DrawingInstrument;
 
 public class TemporalCanvas extends JLabel {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private final DrawingInstrument instr;
 

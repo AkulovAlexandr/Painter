@@ -1,36 +1,40 @@
-package by.painter.controller;
+package by.painter.controller.drawer;
 
+import by.painter.view.PaintCanvas;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RectangleDrawer extends DrawingInstrument {
+public class LineDrawer extends DrawingInstrument {
 
     protected int x1, y1, x2, y2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public RectangleDrawer(Viewable w) {
-        super.mainCanvas = w.getMainCanvas();
-        super.adapter = new RectangleAdapter();
+    public LineDrawer(Viewable w) {
+        super.adapter = new LineAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
     @Override
     public void drawFigure(Graphics g) {
-        int px = Math.min(x1, x2);
-        int py = Math.min(y1, y2);
-        int pw = Math.abs(x1 - x2);
-        int ph = Math.abs(y1 - y2);
-        g.setColor(painter.getInstrumentColor());
-        g.drawRect(px, py, pw, ph);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(painter.getInstrumentColor());
+        g2d.drawLine(x1, y1, x2, y2);
     }
 
-    private class RectangleAdapter extends MouseAdapter {
+    private class LineAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
 
+        private LineAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
         @Override
         public void mousePressed(MouseEvent e) {
             g = mainCanvas.createCanvasGraphics();

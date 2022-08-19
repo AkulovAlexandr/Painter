@@ -15,6 +15,11 @@ public interface Viewable {
 
     void setPainter(Painter painter);
 
-    void setVisible(boolean b);
+    void showError(String message);
 
+    int showConfirmDialog(String message, String title);
+
+    void saveImage();
+
+    void loadImage();
 }

@@ -1,30 +1,39 @@
 package by.painter.view;
 
-import by.painter.controller.buttoncontrol.ClearBtnListener;
-import by.painter.controller.buttoncontrol.ColorBtnListener;
-import by.painter.controller.buttoncontrol.InstrumentBtnListener;
+import by.painter.controller.buttoncontrol.*;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
-
 import javax.swing.*;
 import java.awt.*;
-
+import static javax.swing.ScrollPaneConstants.*;
 
 public class Window extends JFrame implements Viewable {
 
     private Painter painter;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
+    private FileChooser fileChooser;
 
     public Window(Painter painter) {
         this.painter = painter;
-        initElements("Painter 0.5 New Instruments");
+        initElements("Painter 0.6 (save\\load files)");
+    }
+
+    @Override
+    public void saveImage() {
+        fileChooser.save();
+    }
+
+    @Override
+    public void loadImage() {
+        fileChooser.load();
     }
 
     @Override
     public void initElements(String name) {
         this.setTitle(name);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fileChooser = new LocaledFileChooser(this);
         mainCanvas = new PaintCanvas();
         colorPreview = new JToolBar();
         JScrollPane scrollPane = new JScrollPane();
@@ -66,14 +75,15 @@ public class Window extends JFrame implements Viewable {
         mainCanvas.setLayout(mainCanvasLayout);
         mainCanvasLayout.setHorizontalGroup(
                 mainCanvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 770, Short.MAX_VALUE)
+                        .addGap(0, 800, Short.MAX_VALUE)
         );
         mainCanvasLayout.setVerticalGroup(
                 mainCanvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 561, Short.MAX_VALUE)
+                        .addGap(0, 600, Short.MAX_VALUE)
         );
 
         scrollPane.setViewportView(mainCanvas);
+
 
         panelName.setText("Инструменты");
         colorChooserName.setText("Палитра");
@@ -132,7 +142,6 @@ public class Window extends JFrame implements Viewable {
 
         colorPreview.setBackground(Color.black);
         colorPreview.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        colorPreview.setRollover(true);
 
         blackBtn.setBackground(Color.black);
         blackBtn.setCursor(handCursor);
@@ -291,9 +300,11 @@ public class Window extends JFrame implements Viewable {
 
         fileOpen.setText("Открыть");
         fileOpen.setCursor(handCursor);
+        fileOpen.addActionListener(new OpenItemListener(this));
 
         fileSave.setText("Сохранить");
         fileSave.setCursor(handCursor);
+        fileSave.addActionListener(new SaveItemListener(this));
 
         menuFile.add(fileOpen);
         menuFile.add(fileSave);
@@ -321,7 +332,7 @@ public class Window extends JFrame implements Viewable {
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(toolsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -334,6 +345,8 @@ public class Window extends JFrame implements Viewable {
         );
 
         pack();
+        setVisible(true);
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     @Override
@@ -354,5 +367,15 @@ public class Window extends JFrame implements Viewable {
     @Override
     public void setPainter(Painter painter) {
         this.painter = painter;
+    }
+
+    @Override
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Ошибка!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public int showConfirmDialog(String message, String title) {
+        return JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
     }
 }

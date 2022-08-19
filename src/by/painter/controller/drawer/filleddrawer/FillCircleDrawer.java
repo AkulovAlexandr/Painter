@@ -1,5 +1,6 @@
-package by.painter.controller;
+package by.painter.controller.drawer.filleddrawer;
 
+import by.painter.controller.drawer.CircleDrawer;
 import by.painter.view.Viewable;
 
 import java.awt.*;

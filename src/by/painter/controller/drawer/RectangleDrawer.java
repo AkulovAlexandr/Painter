@@ -1,5 +1,6 @@
-package by.painter.controller;
+package by.painter.controller.drawer;
 
+import by.painter.view.PaintCanvas;
 import by.painter.view.TemporalCanvas;
 import by.painter.view.Viewable;
 
@@ -7,15 +8,14 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CircleDrawer extends DrawingInstrument {
+public class RectangleDrawer extends DrawingInstrument {
 
     protected int x1, y1, x2, y2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public CircleDrawer(Viewable w) {
-        super.mainCanvas = w.getMainCanvas();
-        super.adapter = new CircleAdapter();
+    public RectangleDrawer(Viewable w) {
+        super.adapter = new RectangleAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
@@ -27,10 +27,15 @@ public class CircleDrawer extends DrawingInstrument {
         int pw = Math.abs(x1 - x2);
         int ph = Math.abs(y1 - y2);
         g.setColor(painter.getInstrumentColor());
-        g.drawOval(px, py, pw, ph);
+        g.drawRect(px, py, pw, ph);
     }
 
-    private class CircleAdapter extends MouseAdapter {
+    private class RectangleAdapter extends MouseAdapter {
+        private final PaintCanvas mainCanvas;
+
+        private RectangleAdapter(Viewable viewable) {
+            mainCanvas = viewable.getMainCanvas();
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {
