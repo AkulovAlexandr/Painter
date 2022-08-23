@@ -1,12 +1,12 @@
 package by.painter.model;
 
-import by.painter.controller.drawer.DrawingInstrument;
-import by.painter.controller.drawer.*;
-import by.painter.controller.drawer.filleddrawer.FillCircleDrawer;
-import by.painter.controller.drawer.filleddrawer.FillRectangleDrawer;
-import by.painter.controller.drawer.filleddrawer.FillTriangleDrawer;
-import by.painter.view.PaintCanvas;
-import by.painter.view.Viewable;
+import by.painter.model.instrument.*;
+import by.painter.model.instrument.Rectangle;
+import by.painter.model.instrument.filledinstrument.FillCircle;
+import by.painter.model.instrument.filledinstrument.FillRectangle;
+import by.painter.model.instrument.filledinstrument.FillTriangle;
+import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.userinterface.Viewable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,15 +36,15 @@ public class Painter {
     }
 
     private void initializeInstruments() {
-        instruments.put(Instrument.PEN, new PenDrawer(window));
-        instruments.put(Instrument.PAINTBRUSH, new PaintbrushDrawer(window));
-        instruments.put(Instrument.LINE, new LineDrawer(window));
-        instruments.put(Instrument.RECTANGLE, new RectangleDrawer(window));
-        instruments.put(Instrument.FILL_RECTANGLE, new FillRectangleDrawer(window));
-        instruments.put(Instrument.CIRCLE, new CircleDrawer(window));
-        instruments.put(Instrument.FILL_CIRCLE, new FillCircleDrawer(window));
-        instruments.put(Instrument.TRIANGLE, new TriangleDrawer(window));
-        instruments.put(Instrument.FILL_TRIANGLE, new FillTriangleDrawer(window));
+        instruments.put(Instrument.PEN, new Pen(window));
+        instruments.put(Instrument.PAINTBRUSH, new Paintbrush(window));
+        instruments.put(Instrument.LINE, new Line(window));
+        instruments.put(Instrument.RECTANGLE, new Rectangle(window));
+        instruments.put(Instrument.FILL_RECTANGLE, new FillRectangle(window));
+        instruments.put(Instrument.CIRCLE, new Circle(window));
+        instruments.put(Instrument.FILL_CIRCLE, new FillCircle(window));
+        instruments.put(Instrument.TRIANGLE, new Triangle(window));
+        instruments.put(Instrument.FILL_TRIANGLE, new FillTriangle(window));
     }
 
     public void setMainInstrument(Instrument instrument) {

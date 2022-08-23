@@ -1,39 +1,31 @@
-package by.painter.view;
+package by.painter.view.userinterface;
 
-import by.painter.controller.buttoncontrol.*;
+import by.painter.controller.*;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
+import by.painter.view.paintlayer.PaintCanvas;
+
 import javax.swing.*;
 import java.awt.*;
-import static javax.swing.ScrollPaneConstants.*;
 
 public class Window extends JFrame implements Viewable {
 
     private Painter painter;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
-    private FileChooser fileChooser;
+    private ImageLoadable imageLoader;
 
     public Window(Painter painter) {
         this.painter = painter;
-        initElements("Painter 0.6 (save\\load files)");
-    }
-
-    @Override
-    public void saveImage() {
-        fileChooser.save();
-    }
-
-    @Override
-    public void loadImage() {
-        fileChooser.load();
+        initElements("Painter 0.7");
     }
 
     @Override
     public void initElements(String name) {
-        this.setTitle(name);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fileChooser = new LocaledFileChooser(this);
+        setMinimumSize(new Dimension(1024, 768));
+        setTitle(name);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        imageLoader = new ImageLoader(this);
         mainCanvas = new PaintCanvas();
         colorPreview = new JToolBar();
         JScrollPane scrollPane = new JScrollPane();
@@ -81,9 +73,7 @@ public class Window extends JFrame implements Viewable {
                 mainCanvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 600, Short.MAX_VALUE)
         );
-
         scrollPane.setViewportView(mainCanvas);
-
 
         panelName.setText("Инструменты");
         colorChooserName.setText("Палитра");
@@ -332,7 +322,7 @@ public class Window extends JFrame implements Viewable {
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(toolsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                                .addComponent(scrollPane)
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -343,10 +333,25 @@ public class Window extends JFrame implements Viewable {
                                 .addComponent(scrollPane)
                                 .addContainerGap())
         );
-
         pack();
         setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
+    }
+
+    @Override
+    public void saveImage() {
+        imageLoader.save();
+    }
+
+    @Override
+    public void loadImage() {
+        imageLoader.load();
+    }
+
+    @Override
+    public void update() {
+        super.revalidate();
+        super.repaint();
     }
 
     @Override

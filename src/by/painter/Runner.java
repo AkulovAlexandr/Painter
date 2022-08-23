@@ -1,8 +1,8 @@
 package by.painter;
 
 import by.painter.model.Painter;
-import by.painter.view.Viewable;
-import by.painter.view.Window;
+import by.painter.view.userinterface.Viewable;
+import by.painter.view.userinterface.Window;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;

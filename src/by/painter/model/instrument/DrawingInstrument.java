@@ -1,4 +1,4 @@
-package by.painter.controller.drawer;
+package by.painter.model.instrument;
 
 import by.painter.model.Painter;
 

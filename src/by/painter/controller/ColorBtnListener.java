@@ -1,11 +1,11 @@
-package by.painter.controller.buttoncontrol;
+package by.painter.controller;
 
-import by.painter.view.Viewable;
+import by.painter.view.userinterface.Viewable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class ColorBtnListener extends ButtonController {
+public class ColorBtnListener extends CommonController {
 
     public ColorBtnListener(Viewable window) {
         super.window = window;

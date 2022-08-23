@@ -1,53 +1,57 @@
-package by.painter.controller.drawer;
+package by.painter.model.instrument;
 
-import by.painter.view.PaintCanvas;
-import by.painter.view.TemporalCanvas;
-import by.painter.view.Viewable;
+import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.paintlayer.TemporalCanvas;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TriangleDrawer extends DrawingInstrument {
+public class Rectangle extends DrawingInstrument {
 
-    protected int x1, y1, x2;
+    protected int x1, y1, x2, y2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public TriangleDrawer(Viewable w) {
-        super.adapter = new TriangleAdapter(w);
+    public Rectangle(Viewable w) {
+        super.adapter = new RectangleAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
     @Override
     public void drawFigure(Graphics g) {
-        int px = Math.abs((x1 + x2) / 2);
-        int py = y1 - (x2 - x1);
+        int px = Math.min(x1, x2);
+        int py = Math.min(y1, y2);
+        int pw = Math.abs(x1 - x2);
+        int ph = Math.abs(y1 - y2);
         g.setColor(painter.getInstrumentColor());
-        g.drawPolygon(new int[]{x1, x2, px}, new int[]{y1, y1, py}, 3);
+        g.drawRect(px, py, pw, ph);
     }
 
-    private class TriangleAdapter extends MouseAdapter {
+    private class RectangleAdapter extends MouseAdapter {
         private final PaintCanvas mainCanvas;
 
-        private TriangleAdapter(Viewable viewable) {
+        private RectangleAdapter(Viewable viewable) {
             mainCanvas = viewable.getMainCanvas();
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
             g = mainCanvas.createCanvasGraphics();
-            temporalCanvas.setBounds(mainCanvas.getX(), mainCanvas.getY(), mainCanvas.getWidth(),
-                    mainCanvas.getHeight());
+            temporalCanvas.setSize(mainCanvas.getWidth(), mainCanvas.getHeight());
             mainCanvas.add(temporalCanvas);
             x1 = e.getX();
             y1 = e.getY();
+            x2 = e.getX();
+            y2 = e.getY();
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
             x2 = e.getX();
+            y2 = e.getY();
             temporalCanvas.repaint();
         }
 
@@ -55,7 +59,9 @@ public class TriangleDrawer extends DrawingInstrument {
         public void mouseReleased(MouseEvent e) {
             mainCanvas.remove(temporalCanvas);
             x2 = e.getX();
+            y2 = e.getY();
             drawFigure(g);
+            g.dispose();
             mainCanvas.repaint();
         }
     }

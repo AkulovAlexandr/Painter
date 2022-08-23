@@ -1,6 +1,7 @@
-package by.painter.view;
+package by.painter.view.userinterface;
 
 import by.painter.model.Painter;
+import by.painter.view.paintlayer.PaintCanvas;
 
 import javax.swing.*;
 
@@ -22,4 +23,6 @@ public interface Viewable {
     void saveImage();
 
     void loadImage();
+
+    void update();
 }

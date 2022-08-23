@@ -1,12 +1,12 @@
-package by.painter.controller.buttoncontrol;
+package by.painter.controller;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 
-import by.painter.view.PaintCanvas;
-import by.painter.view.Viewable;
+import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.userinterface.Viewable;
 
-public class ClearBtnListener extends ButtonController {
+public class ClearBtnListener extends CommonController {
 
     public ClearBtnListener(Viewable window) {
         super.window = window;

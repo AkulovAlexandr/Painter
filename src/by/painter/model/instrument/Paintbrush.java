@@ -1,12 +1,12 @@
-package by.painter.controller.drawer;
+package by.painter.model.instrument;
 
-import by.painter.view.Viewable;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 
-public class PaintbrushDrawer extends PenDrawer {
+public class Paintbrush extends Pen {
 
-    public PaintbrushDrawer(Viewable w) {
+    public Paintbrush(Viewable w) {
         super(w);
     }
 

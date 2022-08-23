@@ -1,16 +1,20 @@
-package by.painter.view;
+package by.painter.view.userinterface;
+
+import by.painter.view.paintlayer.PaintCanvas;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class LocaledFileChooser extends JFileChooser implements FileChooser {
+public class ImageLoader extends JFileChooser implements ImageLoadable {
 
     private final Viewable window;
 
-    public LocaledFileChooser(Viewable window) {
+    public ImageLoader(Viewable window) {
         this.window = window;
         localizeElements();
     }
@@ -19,10 +23,14 @@ public class LocaledFileChooser extends JFileChooser implements FileChooser {
         setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("Изображение с поддержкой прозрачности (png)", "png");
         addChoosableFileFilter(pngFilter);
+        setApproveButtonText("Подтвердить");
+
+        setPreferredSize(new Dimension(800,600));
     }
 
     @Override
     public void save() {
+        setDialogTitle("Сохранить файл");
         PaintCanvas canvas = window.getMainCanvas();
         if (showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             FileNameExtensionFilter chosenFilter = (FileNameExtensionFilter) getFileFilter();
@@ -53,12 +61,15 @@ public class LocaledFileChooser extends JFileChooser implements FileChooser {
 
     @Override
     public void load() {
+        setDialogTitle("Открыть файл");
         PaintCanvas canvas = window.getMainCanvas();
         if (showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File f = getSelectedFile();
             try {
-                canvas.setOffscreen(ImageIO.read(f));
-                canvas.repaint();
+                BufferedImage img = ImageIO.read(f);
+                canvas.setSize(new Dimension(img.getWidth(), img.getHeight()));
+                canvas.setOffscreen(img);
+                window.update();
             } catch (IOException ex) {
                 window.showError(ex.getMessage());
             }

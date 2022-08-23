@@ -1,10 +1,10 @@
-package by.painter.view;
+package by.painter.view.paintlayer;
 
 import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
-import by.painter.controller.drawer.DrawingInstrument;
+import by.painter.model.instrument.DrawingInstrument;
 
 public class TemporalCanvas extends JLabel {
 

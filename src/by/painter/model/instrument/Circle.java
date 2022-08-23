@@ -1,21 +1,21 @@
-package by.painter.controller.drawer;
+package by.painter.model.instrument;
 
-import by.painter.view.PaintCanvas;
-import by.painter.view.TemporalCanvas;
-import by.painter.view.Viewable;
+import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.paintlayer.TemporalCanvas;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RectangleDrawer extends DrawingInstrument {
+public class Circle extends DrawingInstrument {
 
     protected int x1, y1, x2, y2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public RectangleDrawer(Viewable w) {
-        super.adapter = new RectangleAdapter(w);
+    public Circle(Viewable w) {
+        super.adapter = new CircleAdapter(w);
         super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
@@ -27,24 +27,25 @@ public class RectangleDrawer extends DrawingInstrument {
         int pw = Math.abs(x1 - x2);
         int ph = Math.abs(y1 - y2);
         g.setColor(painter.getInstrumentColor());
-        g.drawRect(px, py, pw, ph);
+        g.drawOval(px, py, pw, ph);
     }
 
-    private class RectangleAdapter extends MouseAdapter {
+    private class CircleAdapter extends MouseAdapter {
         private final PaintCanvas mainCanvas;
 
-        private RectangleAdapter(Viewable viewable) {
+        private CircleAdapter(Viewable viewable) {
             mainCanvas = viewable.getMainCanvas();
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
             g = mainCanvas.createCanvasGraphics();
-            temporalCanvas.setBounds(mainCanvas.getX(), mainCanvas.getY(), mainCanvas.getWidth(),
-                    mainCanvas.getHeight());
+            temporalCanvas.setSize(mainCanvas.getWidth(), mainCanvas.getHeight());
             mainCanvas.add(temporalCanvas);
             x1 = e.getX();
             y1 = e.getY();
+            x2 = e.getX();
+            y2 = e.getY();
         }
 
         @Override
@@ -60,6 +61,7 @@ public class RectangleDrawer extends DrawingInstrument {
             x2 = e.getX();
             y2 = e.getY();
             drawFigure(g);
+            g.dispose();
             mainCanvas.repaint();
         }
     }

@@ -1,10 +1,10 @@
-package by.painter.controller.buttoncontrol;
+package by.painter.controller;
 
-import by.painter.view.Viewable;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.event.ActionEvent;
 
-public class OpenItemListener extends ButtonController {
+public class OpenItemListener extends CommonController {
 
     public OpenItemListener(Viewable window) {
         super.window = window;

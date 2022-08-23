@@ -1,13 +1,13 @@
-package by.painter.controller.drawer.filleddrawer;
+package by.painter.model.instrument.filledinstrument;
 
-import by.painter.controller.drawer.RectangleDrawer;
-import by.painter.view.Viewable;
+import by.painter.model.instrument.Rectangle;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 
-public class FillRectangleDrawer extends RectangleDrawer {
+public class FillRectangle extends Rectangle {
 
-    public FillRectangleDrawer(Viewable w) {
+    public FillRectangle(Viewable w) {
         super(w);
     }
 
