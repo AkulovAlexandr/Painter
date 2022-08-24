@@ -1,13 +1,13 @@
-package by.painter.controller.drawer.filleddrawer;
+package by.painter.model.instrument.filledinstrument;
 
-import by.painter.controller.drawer.TriangleDrawer;
-import by.painter.view.Viewable;
+import by.painter.model.instrument.Triangle;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 
-public class FillTriangleDrawer extends TriangleDrawer {
+public class FillTriangle extends Triangle {
 
-    public FillTriangleDrawer(Viewable w) {
+    public FillTriangle(Viewable w) {
         super(w);
     }
 

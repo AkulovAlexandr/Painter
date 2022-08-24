@@ -1,11 +1,12 @@
-package by.painter.view;
+package by.painter.view.userinterface;
 
 import by.painter.model.Painter;
+import by.painter.view.paintlayer.PaintCanvas;
 
 import javax.swing.*;
 
 public interface Viewable {
-    void initElements(String name);
+    void initElements();
 
     JToolBar getColorPreview();
 
@@ -17,9 +18,13 @@ public interface Viewable {
 
     void showError(String message);
 
-    int showConfirmDialog(String message, String title);
+    int showDialog(String message, String title);
 
     void saveImage();
 
     void loadImage();
+
+    void setTitle(String title);
+
+    void repaint();
 }

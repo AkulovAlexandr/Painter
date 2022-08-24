@@ -1,22 +1,22 @@
-package by.painter.controller.drawer;
+package by.painter.model.instrument;
 
-import by.painter.view.PaintCanvas;
-import by.painter.view.TemporalCanvas;
-import by.painter.view.Viewable;
+import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.paintlayer.TemporalCanvas;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TriangleDrawer extends DrawingInstrument {
+public class Triangle extends DrawingInstrument {
 
     protected int x1, y1, x2;
     protected final TemporalCanvas temporalCanvas;
     protected Graphics g;
 
-    public TriangleDrawer(Viewable w) {
+    public Triangle(Viewable w) {
+        super(w);
         super.adapter = new TriangleAdapter(w);
-        super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
@@ -38,11 +38,12 @@ public class TriangleDrawer extends DrawingInstrument {
         @Override
         public void mousePressed(MouseEvent e) {
             g = mainCanvas.createCanvasGraphics();
-            temporalCanvas.setBounds(mainCanvas.getX(), mainCanvas.getY(), mainCanvas.getWidth(),
-                    mainCanvas.getHeight());
+            temporalCanvas.setSize(mainCanvas.getWidth(), mainCanvas.getHeight());
             mainCanvas.add(temporalCanvas);
             x1 = e.getX();
             y1 = e.getY();
+            x2 = e.getX();
+            painter.setFileSaved(false);
         }
 
         @Override
@@ -56,7 +57,9 @@ public class TriangleDrawer extends DrawingInstrument {
             mainCanvas.remove(temporalCanvas);
             x2 = e.getX();
             drawFigure(g);
+            g.dispose();
             mainCanvas.repaint();
+            window.setTitle(painter.getFileName());
         }
     }
 }

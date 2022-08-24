@@ -1,11 +1,11 @@
-package by.painter.controller.buttoncontrol;
+package by.painter.controller;
 
 import java.awt.event.ActionEvent;
 
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
 
-public class InstrumentBtnListener extends ButtonController {
+public class InstrumentBtnListener extends CommonController {
 
     private final Instrument instrument;
 

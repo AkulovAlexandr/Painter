@@ -1,4 +1,4 @@
-package by.painter.view;
+package by.painter.view.paintlayer;
 
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -9,14 +9,13 @@ import java.awt.image.BufferedImage;
 
 public class PaintCanvas extends JPanel {
 
-    private static final long serialVersionUID = 1L;
     private BufferedImage offscreen = null;
     private int currentWidth = 0;
     private int currentHeight = 0;
 
     public PaintCanvas() {
         addComponentListener(new SizeTracker());
-        setBackground(new Color(255, 255, 255));
+        setBackground(new Color(250, 250, 250));
     }
 
     public BufferedImage getOffscreen() {
@@ -72,21 +71,21 @@ public class PaintCanvas extends JPanel {
 
         @Override
         public void componentShown(ComponentEvent e) {
-            e.getComponent().setPreferredSize(new Dimension(currentWidth, currentHeight));
             if (offscreen == null) {
                 extendCanvasTo(getWidth(), getHeight());
             } else {
-                extendCanvasTo(offscreen.getWidth(), offscreen.getHeight());
+                extendCanvasTo(currentWidth, currentHeight);
+                setPreferredSize(new Dimension(offscreen.getWidth(), offscreen.getHeight()));
             }
         }
 
         @Override
         public void componentResized(ComponentEvent e) {
-            e.getComponent().setPreferredSize(new Dimension(currentWidth, currentHeight));
             if (offscreen == null) {
                 extendCanvasTo(getWidth(), getHeight());
             } else {
-                extendCanvasTo(offscreen.getWidth(), offscreen.getHeight());
+                extendCanvasTo(currentWidth, currentHeight);
+                setPreferredSize(new Dimension(offscreen.getWidth(), offscreen.getHeight()));
             }
         }
     }

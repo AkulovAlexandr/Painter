@@ -1,13 +1,13 @@
-package by.painter.controller.drawer.filleddrawer;
+package by.painter.model.instrument.filledinstrument;
 
-import by.painter.controller.drawer.CircleDrawer;
-import by.painter.view.Viewable;
+import by.painter.model.instrument.Circle;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 
-public class FillCircleDrawer extends CircleDrawer {
+public class FillCircle extends Circle {
 
-    public FillCircleDrawer(Viewable w) {
+    public FillCircle(Viewable w) {
         super(w);
     }
 

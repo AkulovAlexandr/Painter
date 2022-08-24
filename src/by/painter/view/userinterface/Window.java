@@ -1,39 +1,33 @@
-package by.painter.view;
+package by.painter.view.userinterface;
 
-import by.painter.controller.buttoncontrol.*;
+import by.painter.controller.*;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
+import by.painter.view.paintlayer.PaintCanvas;
+
 import javax.swing.*;
 import java.awt.*;
-import static javax.swing.ScrollPaneConstants.*;
 
 public class Window extends JFrame implements Viewable {
 
+    public static final String DEFAULT_TITLE_VERSION = "Painter app (v0.7)";
     private Painter painter;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
-    private FileChooser fileChooser;
+    private ImageLoadable imageLoader;
 
     public Window(Painter painter) {
         this.painter = painter;
-        initElements("Painter 0.6 (save\\load files)");
+        initElements();
     }
 
     @Override
-    public void saveImage() {
-        fileChooser.save();
-    }
-
-    @Override
-    public void loadImage() {
-        fileChooser.load();
-    }
-
-    @Override
-    public void initElements(String name) {
-        this.setTitle(name);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fileChooser = new LocaledFileChooser(this);
+    public void initElements() {
+        super.setMinimumSize(new Dimension(1024, 768));
+        super.setTitle(DEFAULT_TITLE_VERSION);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super.addWindowListener(new CloseBtnListener(this));
+        imageLoader = new ImageLoader(this);
         mainCanvas = new PaintCanvas();
         colorPreview = new JToolBar();
         JScrollPane scrollPane = new JScrollPane();
@@ -81,9 +75,7 @@ public class Window extends JFrame implements Viewable {
                 mainCanvasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 600, Short.MAX_VALUE)
         );
-
         scrollPane.setViewportView(mainCanvas);
-
 
         panelName.setText("Инструменты");
         colorChooserName.setText("Палитра");
@@ -143,42 +135,43 @@ public class Window extends JFrame implements Viewable {
         colorPreview.setBackground(Color.black);
         colorPreview.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
-        blackBtn.setBackground(Color.black);
+        blackBtn.setBackground(Color.BLACK);
         blackBtn.setCursor(handCursor);
         blackBtn.addActionListener(new ColorBtnListener(this));
 
+        whiteBtn.setBackground(Color.WHITE);
         whiteBtn.setCursor(handCursor);
         whiteBtn.addActionListener(new ColorBtnListener(this));
 
-        redBtn.setBackground(Color.red);
+        redBtn.setBackground(Color.RED);
         redBtn.setCursor(handCursor);
         redBtn.addActionListener(new ColorBtnListener(this));
 
-        grayBtn.setBackground(Color.gray);
+        grayBtn.setBackground(Color.GRAY);
         grayBtn.setCursor(handCursor);
         grayBtn.addActionListener(new ColorBtnListener(this));
 
-        yellowBtn.setBackground(Color.yellow);
+        yellowBtn.setBackground(Color.YELLOW);
         yellowBtn.setCursor(handCursor);
         yellowBtn.addActionListener(new ColorBtnListener(this));
 
-        orangeBtn.setBackground(Color.orange);
+        orangeBtn.setBackground(Color.ORANGE);
         orangeBtn.setCursor(handCursor);
         orangeBtn.addActionListener(new ColorBtnListener(this));
 
-        cyanBtn.setBackground(Color.cyan);
+        cyanBtn.setBackground(Color.CYAN);
         cyanBtn.setCursor(handCursor);
         cyanBtn.addActionListener(new ColorBtnListener(this));
 
-        greenBtn.setBackground(Color.green);
+        greenBtn.setBackground(Color.GREEN);
         greenBtn.setCursor(handCursor);
         greenBtn.addActionListener(new ColorBtnListener(this));
 
-        magnetaBtn.setBackground(Color.magenta);
+        magnetaBtn.setBackground(Color.MAGENTA);
         magnetaBtn.setCursor(handCursor);
         magnetaBtn.addActionListener(new ColorBtnListener(this));
 
-        blueBtn.setBackground(Color.blue);
+        blueBtn.setBackground(Color.BLUE);
         blueBtn.setCursor(handCursor);
         blueBtn.addActionListener(new ColorBtnListener(this));
 
@@ -312,11 +305,13 @@ public class Window extends JFrame implements Viewable {
         menuView.setText("Вид");
         menuView.setCursor(handCursor);
 
-        viewTheme.setText("Выбрать тему");
+        viewTheme.setText("Темная тема");
         viewTheme.setCursor(handCursor);
+        viewTheme.addActionListener(new ThemeItemListener(this));
 
         viewAbout.setText("О приложении");
         viewAbout.setCursor(handCursor);
+        viewAbout.addActionListener(new AboutItemListener(this));
 
         menuView.add(viewTheme);
         menuView.add(viewAbout);
@@ -332,7 +327,7 @@ public class Window extends JFrame implements Viewable {
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(toolsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                                .addComponent(scrollPane)
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -343,10 +338,28 @@ public class Window extends JFrame implements Viewable {
                                 .addComponent(scrollPane)
                                 .addContainerGap())
         );
-
         pack();
         setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
+    }
+
+    @Override
+    public void saveImage() {
+        imageLoader.save();
+    }
+
+    @Override
+    public void loadImage() {
+        imageLoader.load();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        if (!painter.isFileSaved()) {
+            super.setTitle(title + " *");
+        } else {
+            super.setTitle(title);
+        }
     }
 
     @Override
@@ -375,7 +388,8 @@ public class Window extends JFrame implements Viewable {
     }
 
     @Override
-    public int showConfirmDialog(String message, String title) {
-        return JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+    public int showDialog(String message, String title) {
+        String[] options = {"Да", "Нет"};
+        return JOptionPane.showOptionDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, null);
     }
 }

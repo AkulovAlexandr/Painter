@@ -1,20 +1,20 @@
-package by.painter.controller.drawer;
+package by.painter.model.instrument;
 
-import by.painter.view.PaintCanvas;
-import by.painter.view.Viewable;
+import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.userinterface.Viewable;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class PenDrawer extends DrawingInstrument {
+public class Pen extends DrawingInstrument {
 
     protected int x1, y1, x2, y2;
     protected Graphics g;
 
-    public PenDrawer(Viewable w) {
+    public Pen(Viewable w) {
+        super(w);
         super.adapter = new PenAdapter(w);
-        super.painter = w.getPainter();
     }
 
     @Override
@@ -39,6 +39,7 @@ public class PenDrawer extends DrawingInstrument {
             y1 = e.getY();
             x2 = x1;
             y2 = y1;
+            painter.setFileSaved(false);
         }
 
         @Override
@@ -48,7 +49,12 @@ public class PenDrawer extends DrawingInstrument {
             drawFigure(g);
             mainCanvas.repaint();
         }
-
+        @Override
+        public void mouseReleased(MouseEvent event) {
+            g.dispose();
+            mainCanvas.repaint();
+            window.setTitle(painter.getFileName());
+        }
     }
 
 }
