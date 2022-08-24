@@ -69,8 +69,8 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
             File file = getSelectedFile();
             String fileName = file.getName();
             if (file.exists()) {
-                String message = "Текущие изменения будут утеряны.\nПродолжить?";
-                String title = "Файл не был сохранен!";
+                String message = "Если вы продолжите, файл будет перезаписан.\nПродолжить?";
+                String title = "Файл с таким именем уже существует!";
                 if (window.showDialog(message, title) == YES_OPTION) {
                     try {
                         ImageIO.write(canvas.getOffscreen(), extensions[0], file);
