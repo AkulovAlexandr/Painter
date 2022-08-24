@@ -60,6 +60,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
 
     @Override
     public void save() {
+        updateUI();
         setDialogTitle("Сохранить файл");
         setSelectedFile(new File(painter.getFileName()));
         PaintCanvas canvas = window.getMainCanvas();
@@ -97,6 +98,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
 
     @Override
     public void load() {
+        updateUI();
         setDialogTitle("Открыть файл");
         PaintCanvas canvas = window.getMainCanvas();
         if (showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {

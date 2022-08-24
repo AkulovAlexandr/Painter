@@ -3,10 +3,8 @@ package by.painter;
 import by.painter.model.Painter;
 import by.painter.view.userinterface.Viewable;
 import by.painter.view.userinterface.Window;
-import com.formdev.flatlaf.FlatLightLaf;
-
+import com.formdev.flatlaf.intellijthemes.*;
 import javax.swing.*;
-
 
 public class Runner {
 
@@ -20,7 +18,9 @@ public class Runner {
 
     private static void initializeLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            UIManager.setLookAndFeel(new FlatCyanLightIJTheme());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }

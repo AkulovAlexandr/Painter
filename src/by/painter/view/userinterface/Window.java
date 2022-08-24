@@ -5,24 +5,45 @@ import by.painter.model.Instrument;
 import by.painter.model.Painter;
 import by.painter.view.paintlayer.PaintCanvas;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Objects;
 
 public class Window extends JFrame implements Viewable {
 
-    public static final String DEFAULT_TITLE_VERSION = "Painter app (v0.7)";
+    public static final String DEFAULT_TITLE_VERSION = "Рисовальщик (v0.8)";
     private Painter painter;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
     private ImageLoadable imageLoader;
+    private JCheckBoxMenuItem darkTheme;
+    private JCheckBoxMenuItem lightTheme;
+    private Font defaultFont;
 
     public Window(Painter painter) {
         this.painter = painter;
+        try {
+            Image windowIcon = ImageIO.read(Objects.requireNonNull(Window.class.getResourceAsStream("/images/window_icon.png")));
+            setIconImage(windowIcon);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            defaultFont =  Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(Window.class.getResourceAsStream("/fonts/LiberationSans-Bold.ttf")));
+            ge.registerFont(defaultFont);
+        } catch (FontFormatException | IOException ex) {
+            ex.printStackTrace();
+        }
         initElements();
     }
 
     @Override
     public void initElements() {
+        super.setLocationRelativeTo(null);
         super.setMinimumSize(new Dimension(1024, 768));
         super.setTitle(DEFAULT_TITLE_VERSION);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +51,8 @@ public class Window extends JFrame implements Viewable {
         imageLoader = new ImageLoader(this);
         mainCanvas = new PaintCanvas();
         colorPreview = new JToolBar();
+        darkTheme = new JCheckBoxMenuItem();
+        lightTheme = new JCheckBoxMenuItem();
         JScrollPane scrollPane = new JScrollPane();
         JPanel toolsPanel = new JPanel();
         JLabel panelName = new JLabel();
@@ -61,8 +84,9 @@ public class Window extends JFrame implements Viewable {
         JMenuItem fileOpen = new JMenuItem();
         JMenuItem fileSave = new JMenuItem();
         JMenu menuView = new JMenu();
-        JMenuItem viewTheme = new JMenuItem();
-        JMenuItem viewAbout = new JMenuItem();
+        JMenu viewTheme = new JMenu();
+        JMenu menuHelp = new JMenu();
+        JMenuItem aboutItem = new JMenuItem();
         Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
 
         GroupLayout mainCanvasLayout = new GroupLayout(mainCanvas);
@@ -78,7 +102,9 @@ public class Window extends JFrame implements Viewable {
         scrollPane.setViewportView(mainCanvas);
 
         panelName.setText("Инструменты");
+        panelName.setFont(defaultFont.deriveFont(Font.PLAIN,14f));
         colorChooserName.setText("Палитра");
+        colorChooserName.setFont(defaultFont.deriveFont(Font.PLAIN,14f));
 
         penBtn.setText("✎");
         penBtn.setCursor(handCursor);
@@ -97,12 +123,12 @@ public class Window extends JFrame implements Viewable {
         fillBtn.setCursor(handCursor);
         fillBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILLER));
 
-        rectangleBtn.setFont(new Font("Liberation Sans", Font.PLAIN, 24));
+        rectangleBtn.setFont(defaultFont.deriveFont(24f));
         rectangleBtn.setText("□");
         rectangleBtn.setCursor(handCursor);
         rectangleBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.RECTANGLE));
 
-        rectangleFilledBtn.setFont(new Font("Liberation Sans", Font.PLAIN, 32));
+        rectangleFilledBtn.setFont(defaultFont.deriveFont(32f));
         rectangleFilledBtn.setText("■");
         rectangleFilledBtn.setCursor(handCursor);
         rectangleFilledBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILL_RECTANGLE));
@@ -133,7 +159,6 @@ public class Window extends JFrame implements Viewable {
         clearBtn.addActionListener(new ClearBtnListener(this));
 
         colorPreview.setBackground(Color.black);
-        colorPreview.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
         blackBtn.setBackground(Color.BLACK);
         blackBtn.setCursor(handCursor);
@@ -143,35 +168,35 @@ public class Window extends JFrame implements Viewable {
         whiteBtn.setCursor(handCursor);
         whiteBtn.addActionListener(new ColorBtnListener(this));
 
-        redBtn.setBackground(Color.RED);
+        redBtn.setBackground(Color.red);
         redBtn.setCursor(handCursor);
         redBtn.addActionListener(new ColorBtnListener(this));
 
-        grayBtn.setBackground(Color.GRAY);
+        grayBtn.setBackground(Color.gray);
         grayBtn.setCursor(handCursor);
         grayBtn.addActionListener(new ColorBtnListener(this));
 
-        yellowBtn.setBackground(Color.YELLOW);
+        yellowBtn.setBackground(Color.yellow);
         yellowBtn.setCursor(handCursor);
         yellowBtn.addActionListener(new ColorBtnListener(this));
 
-        orangeBtn.setBackground(Color.ORANGE);
+        orangeBtn.setBackground(Color.orange);
         orangeBtn.setCursor(handCursor);
         orangeBtn.addActionListener(new ColorBtnListener(this));
 
-        cyanBtn.setBackground(Color.CYAN);
+        cyanBtn.setBackground(Color.cyan);
         cyanBtn.setCursor(handCursor);
         cyanBtn.addActionListener(new ColorBtnListener(this));
 
-        greenBtn.setBackground(Color.GREEN);
+        greenBtn.setBackground(Color.green);
         greenBtn.setCursor(handCursor);
         greenBtn.addActionListener(new ColorBtnListener(this));
 
-        magnetaBtn.setBackground(Color.MAGENTA);
+        magnetaBtn.setBackground(Color.magenta);
         magnetaBtn.setCursor(handCursor);
         magnetaBtn.addActionListener(new ColorBtnListener(this));
 
-        blueBtn.setBackground(Color.BLUE);
+        blueBtn.setBackground(Color.blue);
         blueBtn.setCursor(handCursor);
         blueBtn.addActionListener(new ColorBtnListener(this));
 
@@ -305,19 +330,36 @@ public class Window extends JFrame implements Viewable {
         menuView.setText("Вид");
         menuView.setCursor(handCursor);
 
-        viewTheme.setText("Темная тема");
+        viewTheme.setText("Темы оформления");
         viewTheme.setCursor(handCursor);
-        viewTheme.addActionListener(new ThemeItemListener(this));
-
-        viewAbout.setText("О приложении");
-        viewAbout.setCursor(handCursor);
-        viewAbout.addActionListener(new AboutItemListener(this));
 
         menuView.add(viewTheme);
-        menuView.add(viewAbout);
+
+        ActionListener themeItemListener = new ThemeItemListener(this);
+        darkTheme.setText(Theme.DARK_THEME.getTitle());
+        darkTheme.setCursor(handCursor);
+        darkTheme.addActionListener(themeItemListener);
+
+        lightTheme.setText(Theme.LIGHT_THEME.getTitle());
+        lightTheme.setCursor(handCursor);
+        lightTheme.setSelected(true);
+        lightTheme.addActionListener(themeItemListener);
+
+        viewTheme.add(darkTheme);
+        viewTheme.add(lightTheme);
+
+        menuHelp.setText("Помощь");
+        menuHelp.setCursor(handCursor);
+
+        aboutItem.setText("О программе");
+        aboutItem.setCursor(handCursor);
+        aboutItem.addActionListener(new AboutItemListener(this));
+
+        menuHelp.add(aboutItem);
 
         menuBar.add(menuFile);
         menuBar.add(menuView);
+        menuBar.add(menuHelp);
         setJMenuBar(menuBar);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -340,7 +382,6 @@ public class Window extends JFrame implements Viewable {
         );
         pack();
         setVisible(true);
-        setExtendedState(MAXIMIZED_BOTH);
     }
 
     @Override
@@ -380,6 +421,14 @@ public class Window extends JFrame implements Viewable {
     @Override
     public void setPainter(Painter painter) {
         this.painter = painter;
+    }
+
+    public JCheckBoxMenuItem getDarkTheme() {
+        return darkTheme;
+    }
+
+    public JCheckBoxMenuItem getLightTheme() {
+        return lightTheme;
     }
 
     @Override
