@@ -13,8 +13,8 @@ public class Filler extends DrawingInstrument {
     protected Graphics g;
 
     public Filler(Viewable w) {
+        super(w);
         super.adapter = new FillerAdapter(w);
-        super.painter = w.getPainter();
     }
 
     @Override

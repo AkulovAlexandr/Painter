@@ -15,8 +15,8 @@ public class Triangle extends DrawingInstrument {
     protected Graphics g;
 
     public Triangle(Viewable w) {
+        super(w);
         super.adapter = new TriangleAdapter(w);
-        super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
@@ -43,6 +43,7 @@ public class Triangle extends DrawingInstrument {
             x1 = e.getX();
             y1 = e.getY();
             x2 = e.getX();
+            painter.setFileSaved(false);
         }
 
         @Override
@@ -58,6 +59,7 @@ public class Triangle extends DrawingInstrument {
             drawFigure(g);
             g.dispose();
             mainCanvas.repaint();
+            window.setTitle(painter.getFileName());
         }
     }
 }

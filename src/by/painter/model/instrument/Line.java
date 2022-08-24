@@ -15,8 +15,8 @@ public class Line extends DrawingInstrument {
     protected Graphics g;
 
     public Line(Viewable w) {
+        super(w);
         super.adapter = new LineAdapter(w);
-        super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
@@ -43,6 +43,7 @@ public class Line extends DrawingInstrument {
             mainCanvas.add(temporalCanvas);
             x1 = e.getX();
             y1 = e.getY();
+            painter.setFileSaved(false);
         }
 
         @Override
@@ -60,6 +61,7 @@ public class Line extends DrawingInstrument {
             drawFigure(g);
             g.dispose();
             mainCanvas.repaint();
+            window.setTitle(painter.getFileName());
         }
     }
 }

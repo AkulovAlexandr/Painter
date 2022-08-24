@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class Window extends JFrame implements Viewable {
 
+    public static final String DEFAULT_TITLE_VERSION = "Painter app (v0.7)";
     private Painter painter;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
@@ -17,14 +18,15 @@ public class Window extends JFrame implements Viewable {
 
     public Window(Painter painter) {
         this.painter = painter;
-        initElements("Painter 0.7");
+        initElements();
     }
 
     @Override
-    public void initElements(String name) {
-        setMinimumSize(new Dimension(1024, 768));
-        setTitle(name);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void initElements() {
+        super.setMinimumSize(new Dimension(1024, 768));
+        super.setTitle(DEFAULT_TITLE_VERSION);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super.addWindowListener(new CloseBtnListener(this));
         imageLoader = new ImageLoader(this);
         mainCanvas = new PaintCanvas();
         colorPreview = new JToolBar();
@@ -133,42 +135,43 @@ public class Window extends JFrame implements Viewable {
         colorPreview.setBackground(Color.black);
         colorPreview.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
-        blackBtn.setBackground(Color.black);
+        blackBtn.setBackground(Color.BLACK);
         blackBtn.setCursor(handCursor);
         blackBtn.addActionListener(new ColorBtnListener(this));
 
+        whiteBtn.setBackground(Color.WHITE);
         whiteBtn.setCursor(handCursor);
         whiteBtn.addActionListener(new ColorBtnListener(this));
 
-        redBtn.setBackground(Color.red);
+        redBtn.setBackground(Color.RED);
         redBtn.setCursor(handCursor);
         redBtn.addActionListener(new ColorBtnListener(this));
 
-        grayBtn.setBackground(Color.gray);
+        grayBtn.setBackground(Color.GRAY);
         grayBtn.setCursor(handCursor);
         grayBtn.addActionListener(new ColorBtnListener(this));
 
-        yellowBtn.setBackground(Color.yellow);
+        yellowBtn.setBackground(Color.YELLOW);
         yellowBtn.setCursor(handCursor);
         yellowBtn.addActionListener(new ColorBtnListener(this));
 
-        orangeBtn.setBackground(Color.orange);
+        orangeBtn.setBackground(Color.ORANGE);
         orangeBtn.setCursor(handCursor);
         orangeBtn.addActionListener(new ColorBtnListener(this));
 
-        cyanBtn.setBackground(Color.cyan);
+        cyanBtn.setBackground(Color.CYAN);
         cyanBtn.setCursor(handCursor);
         cyanBtn.addActionListener(new ColorBtnListener(this));
 
-        greenBtn.setBackground(Color.green);
+        greenBtn.setBackground(Color.GREEN);
         greenBtn.setCursor(handCursor);
         greenBtn.addActionListener(new ColorBtnListener(this));
 
-        magnetaBtn.setBackground(Color.magenta);
+        magnetaBtn.setBackground(Color.MAGENTA);
         magnetaBtn.setCursor(handCursor);
         magnetaBtn.addActionListener(new ColorBtnListener(this));
 
-        blueBtn.setBackground(Color.blue);
+        blueBtn.setBackground(Color.BLUE);
         blueBtn.setCursor(handCursor);
         blueBtn.addActionListener(new ColorBtnListener(this));
 
@@ -302,11 +305,13 @@ public class Window extends JFrame implements Viewable {
         menuView.setText("Вид");
         menuView.setCursor(handCursor);
 
-        viewTheme.setText("Выбрать тему");
+        viewTheme.setText("Темная тема");
         viewTheme.setCursor(handCursor);
+        viewTheme.addActionListener(new ThemeItemListener(this));
 
         viewAbout.setText("О приложении");
         viewAbout.setCursor(handCursor);
+        viewAbout.addActionListener(new AboutItemListener(this));
 
         menuView.add(viewTheme);
         menuView.add(viewAbout);
@@ -349,9 +354,12 @@ public class Window extends JFrame implements Viewable {
     }
 
     @Override
-    public void update() {
-        super.revalidate();
-        super.repaint();
+    public void setTitle(String title) {
+        if (!painter.isFileSaved()) {
+            super.setTitle(title + " *");
+        } else {
+            super.setTitle(title);
+        }
     }
 
     @Override
@@ -380,7 +388,8 @@ public class Window extends JFrame implements Viewable {
     }
 
     @Override
-    public int showConfirmDialog(String message, String title) {
-        return JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+    public int showDialog(String message, String title) {
+        String[] options = {"Да", "Нет"};
+        return JOptionPane.showOptionDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, null);
     }
 }

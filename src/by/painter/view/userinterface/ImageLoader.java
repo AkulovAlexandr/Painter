@@ -1,5 +1,6 @@
 package by.painter.view.userinterface;
 
+import by.painter.model.Painter;
 import by.painter.view.paintlayer.PaintCanvas;
 
 import javax.imageio.ImageIO;
@@ -10,48 +11,83 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static javax.swing.JOptionPane.YES_OPTION;
+
 public class ImageLoader extends JFileChooser implements ImageLoadable {
 
     private final Viewable window;
+    private final Painter painter;
 
     public ImageLoader(Viewable window) {
         this.window = window;
+        this.painter = window.getPainter();
         localizeElements();
     }
 
     private void localizeElements() {
         setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("Изображение с поддержкой прозрачности (png)", "png");
+        FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("Изображение PNG (с поддержкой прозрачности)", "png");
         addChoosableFileFilter(pngFilter);
-        setApproveButtonText("Подтвердить");
-
-        setPreferredSize(new Dimension(800,600));
+        UIManager.put("FileChooser.openDialogTitleText", "Открыть");
+        UIManager.put("FileChooser.lookInLabelText", "Путь");
+        UIManager.put("FileChooser.saveInLabelText", "Путь");
+        UIManager.put("FileChooser.openButtonText", "Открыть");
+        UIManager.put("FileChooser.directoryOpenButtonText", "Открыть");
+        UIManager.put("FileChooser.directoryOpenButtonToolTipText", "Открыть папку");
+        UIManager.put("FileChooser.saveButtonText", "Сохранить");
+        UIManager.put("FileChooser.cancelButtonText", "Отмена");
+        UIManager.put("FileChooser.fileNameLabelText", "Имя файла");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Тип файла");
+        UIManager.put("FileChooser.openButtonToolTipText", "Открыть выбранный файл");
+        UIManager.put("FileChooser.saveButtonToolTipText", "Сохранить выбранный файл");
+        UIManager.put("FileChooser.cancelButtonToolTipText", "Вернуться на главный экран");
+        UIManager.put("FileChooser.fileNameHeaderText", "Имя файла");
+        UIManager.put("FileChooser.upFolderToolTipText", "На уровень выше");
+        UIManager.put("FileChooser.homeFolderToolTipText", "Домой");
+        UIManager.put("FileChooser.newFolderToolTipText", "Создать новую папку");
+        UIManager.put("FileChooser.listViewButtonToolTipText", "Список");
+        UIManager.put("FileChooser.newFolderButtonText", "Создать новую папку");
+        UIManager.put("FileChooser.renameFileButtonText", "Переименовать");
+        UIManager.put("FileChooser.deleteFileButtonText", "Удалить");
+        UIManager.put("FileChooser.filterLabelText", "Тип файла");
+        UIManager.put("FileChooser.detailsViewButtonToolTipText", "Подробный список");
+        UIManager.put("FileChooser.fileSizeHeaderText", "Размер");
+        UIManager.put("FileChooser.fileDateHeaderText", "Дата изменения");
+        setApproveButtonText("Открыть");
+        setPreferredSize(new Dimension(600, 400));
+        updateUI();
     }
 
     @Override
     public void save() {
         setDialogTitle("Сохранить файл");
+        setSelectedFile(new File(painter.getFileName()));
         PaintCanvas canvas = window.getMainCanvas();
         if (showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             FileNameExtensionFilter chosenFilter = (FileNameExtensionFilter) getFileFilter();
             String[] extensions = chosenFilter.getExtensions();
-            File f = new File(getSelectedFile().getAbsolutePath() + "." + extensions[0]);
-            if (f.exists()) {
-                if (window.showConfirmDialog("Такой файл уже существует. Перезаписать?", "Внимание!") == 0) {
+            File file = getSelectedFile();
+            String fileName = file.getName();
+            if (file.exists()) {
+                String message = "Текущие изменения будут утеряны.\nПродолжить?";
+                String title = "Файл не был сохранен!";
+                if (window.showDialog(message, title) == YES_OPTION) {
                     try {
-                        ImageIO.write(canvas.getOffscreen(), extensions[0], f);
+                        ImageIO.write(canvas.getOffscreen(), extensions[0], file);
+                        painter.setFileSaved(true);
+                        painter.setFileName(fileName);
+                        window.setTitle(fileName);
                     } catch (IOException ex) {
                         window.showError(ex.getMessage());
                     }
                 }
             } else {
                 try {
-                    f.createNewFile();
-                } catch (IOException ex) {
-                    window.showError(ex.getMessage());
-                }
-                try {
-                    ImageIO.write(canvas.getOffscreen(), extensions[0], f);
+                    file.createNewFile();
+                    ImageIO.write(canvas.getOffscreen(), extensions[0], file);
+                    painter.setFileSaved(true);
+                    painter.setFileName(fileName);
+                    window.setTitle(fileName);
                 } catch (IOException ex) {
                     window.showError(ex.getMessage());
                 }
@@ -64,14 +100,22 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
         setDialogTitle("Открыть файл");
         PaintCanvas canvas = window.getMainCanvas();
         if (showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            File f = getSelectedFile();
-            try {
-                BufferedImage img = ImageIO.read(f);
-                canvas.setSize(new Dimension(img.getWidth(), img.getHeight()));
-                canvas.setOffscreen(img);
-                window.update();
-            } catch (IOException ex) {
-                window.showError(ex.getMessage());
+            String message = "Текущие изменения будут утеряны.\nПродолжить?";
+            String title = "Файл не был сохранен!";
+            if (painter.isFileSaved() || window.showDialog(message, title) == YES_OPTION) {
+                File selectedFile = getSelectedFile();
+                String fileName = selectedFile.getName();
+                try {
+                    BufferedImage img = ImageIO.read(selectedFile);
+                    canvas.setSize(new Dimension(img.getWidth(), img.getHeight()));
+                    canvas.setOffscreen(img);
+                    painter.setFileSaved(true);
+                    painter.setFileName(fileName);
+                    window.setTitle((fileName));
+                    window.repaint();
+                } catch (IOException ex) {
+                    window.showError(ex.getMessage());
+                }
             }
         }
     }

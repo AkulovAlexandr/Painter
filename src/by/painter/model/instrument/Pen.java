@@ -13,8 +13,8 @@ public class Pen extends DrawingInstrument {
     protected Graphics g;
 
     public Pen(Viewable w) {
+        super(w);
         super.adapter = new PenAdapter(w);
-        super.painter = w.getPainter();
     }
 
     @Override
@@ -39,6 +39,7 @@ public class Pen extends DrawingInstrument {
             y1 = e.getY();
             x2 = x1;
             y2 = y1;
+            painter.setFileSaved(false);
         }
 
         @Override
@@ -52,6 +53,7 @@ public class Pen extends DrawingInstrument {
         public void mouseReleased(MouseEvent event) {
             g.dispose();
             mainCanvas.repaint();
+            window.setTitle(painter.getFileName());
         }
     }
 

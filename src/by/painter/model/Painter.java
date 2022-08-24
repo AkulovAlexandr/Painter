@@ -16,6 +16,8 @@ import static java.lang.System.exit;
 
 public class Painter {
 
+    private String fileName;
+    private boolean isFileSaved;
     private final Color defaultColor = Color.BLACK;
     private Color instrumentColor;
     private final Map<Instrument, DrawingInstrument> instruments;
@@ -27,6 +29,7 @@ public class Painter {
 
     public void start() {
         try {
+            isFileSaved = true;
             initializeInstruments();
             setMainInstrument(Instrument.PEN);
         } catch (NullPointerException ex) {
@@ -57,6 +60,22 @@ public class Painter {
         mainCanvas.addMouseListener(mainInstrument.getMouseAdapter());
         mainCanvas.addMouseMotionListener(mainInstrument.getMouseAdapter());
         mainCanvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+    }
+
+    public boolean isFileSaved() {
+        return isFileSaved;
+    }
+
+    public void setFileSaved(boolean fileSaved) {
+        isFileSaved = fileSaved;
+    }
+
+    public String getFileName() {
+        return (fileName == null) ? "new picture.png" : fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public void setWindow(Viewable window) {

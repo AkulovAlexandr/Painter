@@ -15,8 +15,8 @@ public class Rectangle extends DrawingInstrument {
     protected Graphics g;
 
     public Rectangle(Viewable w) {
+        super(w);
         super.adapter = new RectangleAdapter(w);
-        super.painter = w.getPainter();
         temporalCanvas = new TemporalCanvas(this);
     }
 
@@ -46,6 +46,7 @@ public class Rectangle extends DrawingInstrument {
             y1 = e.getY();
             x2 = e.getX();
             y2 = e.getY();
+            painter.setFileSaved(false);
         }
 
         @Override
@@ -63,6 +64,7 @@ public class Rectangle extends DrawingInstrument {
             drawFigure(g);
             g.dispose();
             mainCanvas.repaint();
+            window.setTitle(painter.getFileName());
         }
     }
 }

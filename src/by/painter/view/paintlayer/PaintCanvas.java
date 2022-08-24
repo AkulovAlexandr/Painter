@@ -9,14 +9,13 @@ import java.awt.image.BufferedImage;
 
 public class PaintCanvas extends JPanel {
 
-    private static final long serialVersionUID = 1L;
     private BufferedImage offscreen = null;
     private int currentWidth = 0;
     private int currentHeight = 0;
 
     public PaintCanvas() {
         addComponentListener(new SizeTracker());
-        setBackground(new Color(255, 255, 255));
+        setBackground(new Color(250, 250, 250));
     }
 
     public BufferedImage getOffscreen() {
