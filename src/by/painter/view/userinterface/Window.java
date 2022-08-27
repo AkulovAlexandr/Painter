@@ -43,7 +43,7 @@ public class Window extends JFrame implements Viewable {
 
     @Override
     public void initElements() {
-        super.setLocationRelativeTo(null);
+        super.setLocation(400, 200);
         super.setMinimumSize(new Dimension(1024, 768));
         super.setTitle(DEFAULT_TITLE_VERSION);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -339,10 +339,10 @@ public class Window extends JFrame implements Viewable {
         darkTheme.setText(Theme.DARK_THEME.getTitle());
         darkTheme.setCursor(handCursor);
         darkTheme.addActionListener(themeItemListener);
+        darkTheme.setSelected(true);
 
         lightTheme.setText(Theme.LIGHT_THEME.getTitle());
         lightTheme.setCursor(handCursor);
-        lightTheme.setSelected(true);
         lightTheme.addActionListener(themeItemListener);
 
         viewTheme.add(darkTheme);

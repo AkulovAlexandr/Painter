@@ -20,7 +20,7 @@ public class Runner {
         try {
             JFrame.setDefaultLookAndFeelDecorated(true);
             JDialog.setDefaultLookAndFeelDecorated(true);
-            UIManager.setLookAndFeel(new FlatCyanLightIJTheme());
+            UIManager.setLookAndFeel(new FlatDraculaIJTheme());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
