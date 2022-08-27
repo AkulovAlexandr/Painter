@@ -71,7 +71,7 @@ public class Painter {
     }
 
     public String getFileName() {
-        return (fileName == null) ? "new picture.png" : fileName;
+        return (fileName == null) ? "Новое изображение.png" : fileName;
     }
 
     public void setFileName(String fileName) {

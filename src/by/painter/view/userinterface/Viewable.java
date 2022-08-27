@@ -27,4 +27,8 @@ public interface Viewable {
     void setTitle(String title);
 
     void repaint();
+
+    JCheckBoxMenuItem getLightTheme();
+
+    JCheckBoxMenuItem getDarkTheme();
 }
