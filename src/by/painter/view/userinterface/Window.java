@@ -353,6 +353,7 @@ public class Window extends JFrame implements Viewable {
 
         whiteBtn.setBackground(Color.WHITE);
         whiteBtn.setCursor(handCursor);
+        whiteBtn.addActionListener(new ColorBtnListener(this));
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 4;

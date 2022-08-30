@@ -11,8 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static javax.swing.JOptionPane.YES_OPTION;
-
 public class ImageLoader extends JFileChooser implements ImageLoadable {
 
     private final Viewable window;
@@ -72,7 +70,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
             if (file.exists()) {
                 String message = "Если вы продолжите, файл будет перезаписан.\nПродолжить?";
                 String title = "Файл с таким именем уже существует!";
-                if (window.showDialog(message, title) == YES_OPTION) {
+                if (window.showDialog(message, title) == JOptionPane.YES_OPTION) {
                     try {
                         ImageIO.write(canvas.getOffscreen(), extensions[0], file);
                         painter.setFileSaved(true);
@@ -104,7 +102,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
         if (showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             String message = "Текущие изменения будут утеряны.\nПродолжить?";
             String title = "Файл не был сохранен!";
-            if (painter.isFileSaved() || window.showDialog(message, title) == YES_OPTION) {
+            if (painter.isFileSaved() || window.showDialog(message, title) == JOptionPane.YES_OPTION) {
                 File selectedFile = getSelectedFile();
                 String fileName = selectedFile.getName();
                 try {

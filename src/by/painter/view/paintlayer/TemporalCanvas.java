@@ -8,7 +8,6 @@ import by.painter.model.instrument.DrawingInstrument;
 
 public class TemporalCanvas extends JLabel {
 
-    private static final long serialVersionUID = 1L;
     private final DrawingInstrument instr;
 
     public TemporalCanvas(DrawingInstrument instr) {

@@ -15,9 +15,8 @@ public class PaintCanvas extends JPanel {
 
     public PaintCanvas() {
         addComponentListener(new SizeTracker());
-        setBackground(new Color(250, 250, 250));
+        setBackground(new Color(220, 220, 220));
     }
-
     public BufferedImage getOffscreen() {
         return offscreen;
     }
