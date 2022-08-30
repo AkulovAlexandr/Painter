@@ -6,7 +6,6 @@ import by.painter.view.paintlayer.PaintCanvas;
 import javax.swing.*;
 
 public interface Viewable {
-    void initElements();
 
     JToolBar getColorPreview();
 

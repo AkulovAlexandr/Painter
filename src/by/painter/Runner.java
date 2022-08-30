@@ -1,8 +1,8 @@
 package by.painter;
 
 import by.painter.model.Painter;
-import by.painter.view.userinterface.Viewable;
 import by.painter.view.userinterface.Window;
+import by.painter.view.userinterface.Viewable;
 import com.formdev.flatlaf.intellijthemes.*;
 import javax.swing.*;
 
@@ -11,8 +11,8 @@ public class Runner {
     public static void main(String[] args) {
         initializeLookAndFeel();
         Painter mainProgram = new Painter();
-        Viewable window = new Window(mainProgram);
-        mainProgram.setWindow(window);
+        Viewable Window = new Window(mainProgram);
+        mainProgram.setWindow(Window);
         mainProgram.start();
     }
 
