@@ -40,7 +40,7 @@ public class Window extends JFrame implements Viewable {
         }
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            defaultFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(java.awt.Window.class.getResourceAsStream("/fonts/LiberationSans-Bold.ttf")));
+            defaultFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(Window.class.getResourceAsStream("/fonts/LiberationSans-Bold.ttf")));
             ge.registerFont(defaultFont);
         } catch (FontFormatException | IOException ex) {
             ex.printStackTrace();
