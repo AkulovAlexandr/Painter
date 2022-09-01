@@ -4,16 +4,19 @@ import by.painter.controller.*;
 import by.painter.model.Instrument;
 import by.painter.model.Painter;
 import by.painter.view.paintlayer.PaintCanvas;
+import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Window extends JFrame implements Viewable {
 
+    private final static Logger LOGGER = Logger.getLogger("log");
     public static final String DEFAULT_TITLE_VERSION = "🌢 Painter (v0.9)";
     private Painter painter;
     private JPanel toolsPanel;
@@ -32,22 +35,24 @@ public class Window extends JFrame implements Viewable {
     }
 
     private void loadResources() {
+        LOGGER.info("Загрузка ресурсов...");
         try {
             Image windowIcon = ImageIO.read(Objects.requireNonNull(Window.class.getResourceAsStream("/images/window_icon.png")));
             setIconImage(windowIcon);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error("Не удалось загрузить файл: " + Arrays.toString(ex.getStackTrace()));
         }
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             defaultFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(Window.class.getResourceAsStream("/fonts/LiberationSans-Bold.ttf")));
             ge.registerFont(defaultFont);
         } catch (FontFormatException | IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error("Не удалось загрузить шрифты: " + Arrays.toString(ex.getStackTrace()));
         }
     }
 
     private void initElements() {
+        LOGGER.info("Инициализация окна...");
         initToolsPanel();
         initMenuBar();
 
@@ -85,6 +90,7 @@ public class Window extends JFrame implements Viewable {
     }
 
     private void initMenuBar() {
+        LOGGER.info("Инициализация меню...");
         JMenuBar menuBar = new JMenuBar();
         JMenu menuFile = new JMenu();
         JMenuItem fileOpen = new JMenuItem();
@@ -148,6 +154,7 @@ public class Window extends JFrame implements Viewable {
     }
 
     private void initToolsPanel() {
+        LOGGER.info("Инициализация панели инструментов...");
         toolsPanel = new JPanel();
         colorPreview = new JToolBar();
         JLabel panelName = new JLabel();
@@ -476,10 +483,10 @@ public class Window extends JFrame implements Viewable {
 
     @Override
     public void setTitle(String title) {
-        if (!painter.isFileSaved()) {
-            super.setTitle(title + " *");
-        } else {
+        if (painter.isFileSaved()) {
             super.setTitle(title);
+        } else {
+            super.setTitle(title + " *");
         }
     }
 
@@ -516,11 +523,14 @@ public class Window extends JFrame implements Viewable {
     @Override
     public void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Ошибка!", JOptionPane.ERROR_MESSAGE);
+        LOGGER.error("Ошибка: " + message);
     }
 
     @Override
     public int showDialog(String message, String title) {
         String[] options = {"Да", "Нет"};
-        return JOptionPane.showOptionDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, null);
+        int answer = JOptionPane.showOptionDialog(this, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, null);
+        LOGGER.debug("Диалоговое окно : " + message + " Выбран ответ: " + answer);
+        return answer;
     }
 }

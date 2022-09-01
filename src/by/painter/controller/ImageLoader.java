@@ -1,7 +1,10 @@
-package by.painter.view.userinterface;
+package by.painter.controller;
 
 import by.painter.model.Painter;
 import by.painter.view.paintlayer.PaintCanvas;
+import by.painter.view.userinterface.ImageLoadable;
+import by.painter.view.userinterface.Viewable;
+import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +16,7 @@ import java.io.IOException;
 
 public class ImageLoader extends JFileChooser implements ImageLoadable {
 
+    private final static Logger LOGGER = Logger.getLogger("log");
     private final Viewable window;
     private final Painter painter;
 
@@ -23,6 +27,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
     }
 
     private void localizeElements() {
+        LOGGER.info("Локализация поп-ап с выбором файлов...");
         setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("Изображение PNG (с поддержкой прозрачности)", "png");
         addChoosableFileFilter(pngFilter);
@@ -68,6 +73,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
             File file = getSelectedFile();
             String fileName = file.getName();
             if (file.exists()) {
+                LOGGER.debug("Файл с именем " + fileName + " уже существует.");
                 String message = "Если вы продолжите, файл будет перезаписан.\nПродолжить?";
                 String title = "Файл с таким именем уже существует!";
                 if (window.showDialog(message, title) == JOptionPane.YES_OPTION) {
@@ -76,8 +82,11 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
                         painter.setFileSaved(true);
                         painter.setFileName(fileName);
                         window.setTitle(fileName);
+                        LOGGER.info("Файл сохранен.");
+                        LOGGER.debug("Сохранено в текущий файл с именем " + fileName);
                     } catch (IOException ex) {
                         window.showError(ex.getMessage());
+                        LOGGER.error("Ошибка сохранения файла: " + ex.getMessage());
                     }
                 }
             } else {
@@ -87,8 +96,11 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
                     painter.setFileSaved(true);
                     painter.setFileName(fileName);
                     window.setTitle(fileName);
+                    LOGGER.info("Файл сохранен.");
+                    LOGGER.debug("Создан новый файл с именем " + fileName);
                 } catch (IOException ex) {
                     window.showError(ex.getMessage());
+                    LOGGER.error("Ошибка сохранения файла: " + ex.getMessage());
                 }
             }
         }
@@ -113,8 +125,11 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
                     painter.setFileName(fileName);
                     window.setTitle((fileName));
                     window.repaint();
+                    LOGGER.info("Файл загружен в программу");
+                    LOGGER.debug("Файл с именем " + fileName);
                 } catch (IOException ex) {
                     window.showError(ex.getMessage());
+                    LOGGER.error("Ошибка загрузки файла: " + ex.getMessage());
                 }
             }
         }

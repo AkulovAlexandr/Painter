@@ -28,16 +28,18 @@ public class ThemeItemListener extends CommonController {
                     chosenCheckBox.setSelected(true);
                     UIManager.setLookAndFeel(new FlatDraculaIJTheme());
                     updateUI();
+                    LOGGER.info("Установлена темная тема");
                     break;
                 case LIGHT_THEME:
                     window.getDarkTheme().setSelected(false);
                     chosenCheckBox.setSelected(true);
                     UIManager.setLookAndFeel(new FlatCyanLightIJTheme());
                     updateUI();
+                    LOGGER.info("Установлена светлая тема");
                     break;
             }
         } catch (UnsupportedLookAndFeelException ex) {
-            throw new RuntimeException(ex);
+            LOGGER.error("Неподдерживаемая тема оформления: " + UIManager.getLookAndFeel() + ex);
         }
 
     }

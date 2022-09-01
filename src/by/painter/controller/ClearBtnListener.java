@@ -21,6 +21,7 @@ public class ClearBtnListener extends CommonController {
             mainCanvas.removeMouseListener(mainCanvas.getMouseListeners()[0]);
             mainCanvas.removeMouseMotionListener(mainCanvas.getMouseMotionListeners()[0]);
         }
+        LOGGER.info("Холст очищен...");
     }
 
 }
