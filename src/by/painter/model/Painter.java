@@ -7,38 +7,43 @@ import by.painter.model.instrument.filledinstrument.FillRectangle;
 import by.painter.model.instrument.filledinstrument.FillTriangle;
 import by.painter.view.paintlayer.PaintCanvas;
 import by.painter.view.userinterface.Viewable;
+import org.apache.log4j.Logger;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-import static java.lang.System.exit;
 
 public class Painter {
 
+    private static Painter instance;
+    private final static Logger LOGGER = Logger.getLogger("log");
     private String fileName;
+    private DrawingInstrument drawingInstrument;
     private boolean isFileSaved;
     private final Color defaultColor = Color.BLACK;
     private Color instrumentColor;
     private final Map<Instrument, DrawingInstrument> instruments;
     private Viewable window;
 
-    public Painter() {
+    private Painter() {
         instruments = new LinkedHashMap<>();
+        isFileSaved = true;
+        instance = this;
     }
 
-    public void start() {
-        try {
-            isFileSaved = true;
-            initializeInstruments();
-            setMainInstrument(Instrument.PEN);
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Визуальный интерфейс не загружен.", "Критическая ошибка!", JOptionPane.ERROR_MESSAGE);
-            exit(0);
-        }
+    public static Painter getInstance() {
+        return instance == null ? new Painter() : instance;
     }
 
-    private void initializeInstruments() {
+
+    public void start() throws NullPointerException {
+        LOGGER.info("Старт программы...");
+        initializeInstruments();
+        setDrawingInstrument(Instrument.PEN);
+    }
+
+    private void initializeInstruments() throws NullPointerException {
+        LOGGER.info("Инициализация инструментов...");
         instruments.put(Instrument.PEN, new Pen(window));
         instruments.put(Instrument.PAINTBRUSH, new Paintbrush(window));
         instruments.put(Instrument.LINE, new Line(window));
@@ -48,18 +53,24 @@ public class Painter {
         instruments.put(Instrument.FILL_CIRCLE, new FillCircle(window));
         instruments.put(Instrument.TRIANGLE, new Triangle(window));
         instruments.put(Instrument.FILL_TRIANGLE, new FillTriangle(window));
+        LOGGER.debug("Созданы " + instruments.size() + " объектов:\n" + instruments.values());
     }
 
-    public void setMainInstrument(Instrument instrument) {
-        DrawingInstrument mainInstrument = instruments.get(instrument);
+    public void setDrawingInstrument(Instrument instrument) {
+        drawingInstrument = instruments.get(instrument);
         PaintCanvas mainCanvas = window.getMainCanvas();
         if (mainCanvas.getMouseListeners().length > 0) {
             mainCanvas.removeMouseListener(mainCanvas.getMouseListeners()[0]);
             mainCanvas.removeMouseMotionListener(mainCanvas.getMouseMotionListeners()[0]);
         }
-        mainCanvas.addMouseListener(mainInstrument.getMouseAdapter());
-        mainCanvas.addMouseMotionListener(mainInstrument.getMouseAdapter());
+        mainCanvas.addMouseListener(drawingInstrument.getMouseAdapter());
+        mainCanvas.addMouseMotionListener(drawingInstrument.getMouseAdapter());
         mainCanvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        LOGGER.debug(instrument + " - задан, как текущий инструмент для рисования");
+    }
+
+    public DrawingInstrument getDrawingInstrument() {
+        return drawingInstrument;
     }
 
     public boolean isFileSaved() {
@@ -68,6 +79,7 @@ public class Painter {
 
     public void setFileSaved(boolean fileSaved) {
         isFileSaved = fileSaved;
+        LOGGER.debug("Текущие изменения сохранены? - " + isFileSaved);
     }
 
     public String getFileName() {
@@ -80,6 +92,7 @@ public class Painter {
 
     public void setWindow(Viewable window) {
         this.window = window;
+        LOGGER.debug("Программе задан графический интерфейс: " + window.getClass());
     }
 
     public Color getInstrumentColor() {
@@ -88,6 +101,7 @@ public class Painter {
 
     public void setInstrumentColor(Color color) {
         instrumentColor = color;
+        LOGGER.debug("Выбран цвет: " + color);
     }
 
 }

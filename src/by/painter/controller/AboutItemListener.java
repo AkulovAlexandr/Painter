@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 public class AboutItemListener extends CommonController {
 
     public AboutItemListener(Viewable window) {
-        super.window = window;
+        super(window);
     }
 
     @Override

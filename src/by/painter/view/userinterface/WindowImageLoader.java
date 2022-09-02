@@ -2,6 +2,7 @@ package by.painter.view.userinterface;
 
 import by.painter.model.Painter;
 import by.painter.view.paintlayer.PaintCanvas;
+import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,20 +12,20 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static javax.swing.JOptionPane.YES_OPTION;
+public class WindowImageLoader extends JFileChooser implements ImageLoadable {
 
-public class ImageLoader extends JFileChooser implements ImageLoadable {
-
+    private final static Logger LOGGER = Logger.getLogger("log");
     private final Viewable window;
     private final Painter painter;
 
-    public ImageLoader(Viewable window) {
+    public WindowImageLoader(Viewable window) {
         this.window = window;
-        this.painter = window.getPainter();
+        this.painter = Painter.getInstance();
         localizeElements();
     }
 
     private void localizeElements() {
+        LOGGER.info("Локализация поп-ап с выбором файлов...");
         setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter pngFilter = new FileNameExtensionFilter("Изображение PNG (с поддержкой прозрачности)", "png");
         addChoosableFileFilter(pngFilter);
@@ -70,16 +71,20 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
             File file = getSelectedFile();
             String fileName = file.getName();
             if (file.exists()) {
+                LOGGER.debug("Файл с именем " + fileName + " уже существует.");
                 String message = "Если вы продолжите, файл будет перезаписан.\nПродолжить?";
                 String title = "Файл с таким именем уже существует!";
-                if (window.showDialog(message, title) == YES_OPTION) {
+                if (window.showDialog(message, title) == JOptionPane.YES_OPTION) {
                     try {
                         ImageIO.write(canvas.getOffscreen(), extensions[0], file);
                         painter.setFileSaved(true);
                         painter.setFileName(fileName);
                         window.setTitle(fileName);
+                        LOGGER.info("Файл сохранен.");
+                        LOGGER.debug("Сохранено в текущий файл с именем " + fileName);
                     } catch (IOException ex) {
                         window.showError(ex.getMessage());
+                        LOGGER.error("Ошибка сохранения файла: " + ex.getMessage());
                     }
                 }
             } else {
@@ -89,8 +94,11 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
                     painter.setFileSaved(true);
                     painter.setFileName(fileName);
                     window.setTitle(fileName);
+                    LOGGER.info("Файл сохранен.");
+                    LOGGER.debug("Создан новый файл с именем " + fileName);
                 } catch (IOException ex) {
                     window.showError(ex.getMessage());
+                    LOGGER.error("Ошибка сохранения файла: " + ex.getMessage());
                 }
             }
         }
@@ -104,7 +112,7 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
         if (showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             String message = "Текущие изменения будут утеряны.\nПродолжить?";
             String title = "Файл не был сохранен!";
-            if (painter.isFileSaved() || window.showDialog(message, title) == YES_OPTION) {
+            if (painter.isFileSaved() || window.showDialog(message, title) == JOptionPane.YES_OPTION) {
                 File selectedFile = getSelectedFile();
                 String fileName = selectedFile.getName();
                 try {
@@ -115,8 +123,11 @@ public class ImageLoader extends JFileChooser implements ImageLoadable {
                     painter.setFileName(fileName);
                     window.setTitle((fileName));
                     window.repaint();
+                    LOGGER.info("Файл загружен в программу");
+                    LOGGER.debug("Файл с именем " + fileName);
                 } catch (IOException ex) {
                     window.showError(ex.getMessage());
+                    LOGGER.error("Ошибка загрузки файла: " + ex.getMessage());
                 }
             }
         }
