@@ -19,8 +19,8 @@ public class Runner {
     public static void main(String[] args) {
         initializeLookAndFeel();
         LOGGER.info("Создание объектов...");
-        Painter mainProgram = new Painter();
-        Viewable Window = new Window(mainProgram);
+        Painter mainProgram = Painter.getInstance();
+        Viewable Window = new Window();
         mainProgram.setWindow(Window);
         try {
             mainProgram.start();

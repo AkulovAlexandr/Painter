@@ -9,7 +9,7 @@ import by.painter.view.userinterface.Viewable;
 public class ClearBtnListener extends CommonController {
 
     public ClearBtnListener(Viewable window) {
-        super.window = window;
+        super(window);
     }
 
     @Override

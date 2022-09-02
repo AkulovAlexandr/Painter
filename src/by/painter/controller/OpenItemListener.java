@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 public class OpenItemListener extends CommonController {
 
     public OpenItemListener(Viewable window) {
-        super.window = window;
+        super(window);
     }
 
     @Override

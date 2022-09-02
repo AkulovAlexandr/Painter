@@ -55,7 +55,7 @@ public class Pen extends DrawingInstrument {
             mainCanvas.repaint();
             window.setTitle(painter.getFileName());
             LOGGER.info("Нарисован объект");
-            LOGGER.debug("Инструментом: "  + painter.getMainInstrument() +"\nЦветом: " + painter.getInstrumentColor() + "\nВ файл: " + painter.getFileName());
+            LOGGER.debug("Инструментом: "  + painter.getDrawingInstrument() +"\nЦветом: " + painter.getInstrumentColor() + "\nВ файл: " + painter.getFileName());
         }
     }
 

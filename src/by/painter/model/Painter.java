@@ -15,24 +15,31 @@ import java.util.*;
 
 public class Painter {
 
+    private static Painter instance;
     private final static Logger LOGGER = Logger.getLogger("log");
     private String fileName;
-    DrawingInstrument mainInstrument;
+    private DrawingInstrument drawingInstrument;
     private boolean isFileSaved;
     private final Color defaultColor = Color.BLACK;
     private Color instrumentColor;
     private final Map<Instrument, DrawingInstrument> instruments;
     private Viewable window;
 
-    public Painter() {
+    private Painter() {
         instruments = new LinkedHashMap<>();
         isFileSaved = true;
+        instance = this;
     }
+
+    public static Painter getInstance() {
+        return instance == null ? new Painter() : instance;
+    }
+
 
     public void start() throws NullPointerException {
         LOGGER.info("Старт программы...");
         initializeInstruments();
-        setMainInstrument(Instrument.PEN);
+        setDrawingInstrument(Instrument.PEN);
     }
 
     private void initializeInstruments() throws NullPointerException {
@@ -49,21 +56,21 @@ public class Painter {
         LOGGER.debug("Созданы " + instruments.size() + " объектов:\n" + instruments.values());
     }
 
-    public void setMainInstrument(Instrument instrument) {
-        mainInstrument = instruments.get(instrument);
+    public void setDrawingInstrument(Instrument instrument) {
+        drawingInstrument = instruments.get(instrument);
         PaintCanvas mainCanvas = window.getMainCanvas();
         if (mainCanvas.getMouseListeners().length > 0) {
             mainCanvas.removeMouseListener(mainCanvas.getMouseListeners()[0]);
             mainCanvas.removeMouseMotionListener(mainCanvas.getMouseMotionListeners()[0]);
         }
-        mainCanvas.addMouseListener(mainInstrument.getMouseAdapter());
-        mainCanvas.addMouseMotionListener(mainInstrument.getMouseAdapter());
+        mainCanvas.addMouseListener(drawingInstrument.getMouseAdapter());
+        mainCanvas.addMouseMotionListener(drawingInstrument.getMouseAdapter());
         mainCanvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         LOGGER.debug(instrument + " - задан, как текущий инструмент для рисования");
     }
 
-    public DrawingInstrument getMainInstrument() {
-        return mainInstrument;
+    public DrawingInstrument getDrawingInstrument() {
+        return drawingInstrument;
     }
 
     public boolean isFileSaved() {

@@ -18,7 +18,7 @@ public class Window extends JFrame implements Viewable {
 
     private final static Logger LOGGER = Logger.getLogger("log");
     public static final String DEFAULT_TITLE_VERSION = "🌢 Painter (v0.9)";
-    private Painter painter;
+    private final Painter painter;
     private JPanel toolsPanel;
     private PaintCanvas mainCanvas;
     private JToolBar colorPreview;
@@ -28,8 +28,8 @@ public class Window extends JFrame implements Viewable {
     private Font defaultFont;
     private final Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
 
-    public Window(Painter painter) {
-        this.painter = painter;
+    public Window() {
+        painter = Painter.getInstance();
         loadResources();
         initElements();
     }
@@ -56,7 +56,7 @@ public class Window extends JFrame implements Viewable {
         initToolsPanel();
         initMenuBar();
 
-        imageLoader = new ImageLoader(this);
+        imageLoader = new WindowImageLoader(this);
         mainCanvas = new PaintCanvas();
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(mainCanvas);
@@ -195,7 +195,7 @@ public class Window extends JFrame implements Viewable {
 
         penBtn.setText("✎");
         penBtn.setCursor(handCursor);
-        penBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.PEN));
+        penBtn.addActionListener(new InstrumentBtnListener(Instrument.PEN));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -208,7 +208,7 @@ public class Window extends JFrame implements Viewable {
 
         paintbrushBtn.setText("🖌");
         paintbrushBtn.setCursor(handCursor);
-        paintbrushBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.PAINTBRUSH));
+        paintbrushBtn.addActionListener(new InstrumentBtnListener(Instrument.PAINTBRUSH));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -221,7 +221,7 @@ public class Window extends JFrame implements Viewable {
 
         lineBtn.setText("━");
         lineBtn.setCursor(handCursor);
-        lineBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.LINE));
+        lineBtn.addActionListener(new InstrumentBtnListener(Instrument.LINE));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -248,7 +248,7 @@ public class Window extends JFrame implements Viewable {
         rectangleBtn.setText("□");
         rectangleBtn.setFont(defaultFont.deriveFont(24f));
         rectangleBtn.setCursor(handCursor);
-        rectangleBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.RECTANGLE));
+        rectangleBtn.addActionListener(new InstrumentBtnListener(Instrument.RECTANGLE));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -262,7 +262,7 @@ public class Window extends JFrame implements Viewable {
         rectangleFilledBtn.setText("■");
         rectangleFilledBtn.setFont(defaultFont.deriveFont(32f));
         rectangleFilledBtn.setCursor(handCursor);
-        rectangleFilledBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILL_RECTANGLE));
+        rectangleFilledBtn.addActionListener(new InstrumentBtnListener(Instrument.FILL_RECTANGLE));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -275,7 +275,7 @@ public class Window extends JFrame implements Viewable {
 
         circleBtn.setText("◯");
         circleBtn.setCursor(handCursor);
-        circleBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.CIRCLE));
+        circleBtn.addActionListener(new InstrumentBtnListener(Instrument.CIRCLE));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -288,7 +288,7 @@ public class Window extends JFrame implements Viewable {
 
         circleFilledBtn.setText("⬤");
         circleFilledBtn.setCursor(handCursor);
-        circleFilledBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILL_CIRCLE));
+        circleFilledBtn.addActionListener(new InstrumentBtnListener(Instrument.FILL_CIRCLE));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -301,7 +301,7 @@ public class Window extends JFrame implements Viewable {
 
         triangleBtn.setText("△");
         triangleBtn.setCursor(handCursor);
-        triangleBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.TRIANGLE));
+        triangleBtn.addActionListener(new InstrumentBtnListener(Instrument.TRIANGLE));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -315,7 +315,7 @@ public class Window extends JFrame implements Viewable {
         triangleFilledBtn.setText("▲");
         triangleFilledBtn.setFont(defaultFont.deriveFont(24f));
         triangleFilledBtn.setCursor(handCursor);
-        triangleFilledBtn.addActionListener(new InstrumentBtnListener(painter, Instrument.FILL_TRIANGLE));
+        triangleFilledBtn.addActionListener(new InstrumentBtnListener(Instrument.FILL_TRIANGLE));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
@@ -498,16 +498,6 @@ public class Window extends JFrame implements Viewable {
     @Override
     public PaintCanvas getMainCanvas() {
         return mainCanvas;
-    }
-
-    @Override
-    public Painter getPainter() {
-        return painter;
-    }
-
-    @Override
-    public void setPainter(Painter painter) {
-        this.painter = painter;
     }
 
     @Override

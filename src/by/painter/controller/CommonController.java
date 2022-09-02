@@ -10,8 +10,15 @@ import java.awt.event.ActionListener;
 public abstract class CommonController implements ActionListener {
 
     protected final static Logger LOGGER = Logger.getLogger("log");
-    protected Painter model;
+    protected final Painter painter = Painter.getInstance();
     protected Viewable window;
+
+    protected CommonController() {
+    }
+
+    protected CommonController(Viewable window) {
+        this.window = window;
+    }
 
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException();

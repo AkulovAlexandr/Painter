@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 public class SaveItemListener extends CommonController {
 
     public SaveItemListener(Viewable window) {
-        super.window = window;
+        super(window);
     }
 
     @Override

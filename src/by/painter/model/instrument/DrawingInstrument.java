@@ -11,12 +11,11 @@ public abstract class DrawingInstrument {
 
     protected final static Logger LOGGER = Logger.getLogger("log");
     protected Viewable window;
-    protected Painter painter;
+    protected final Painter painter = Painter.getInstance();
     protected MouseAdapter adapter;
 
-    public DrawingInstrument(Viewable window){
+    protected DrawingInstrument(Viewable window){
         this.window = window;
-        this.painter = window.getPainter();
     }
 
     public void drawFigure(Graphics g) {

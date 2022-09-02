@@ -1,9 +1,7 @@
-package by.painter.controller;
+package by.painter.view.userinterface;
 
 import by.painter.model.Painter;
 import by.painter.view.paintlayer.PaintCanvas;
-import by.painter.view.userinterface.ImageLoadable;
-import by.painter.view.userinterface.Viewable;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
@@ -14,15 +12,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageLoader extends JFileChooser implements ImageLoadable {
+public class WindowImageLoader extends JFileChooser implements ImageLoadable {
 
     private final static Logger LOGGER = Logger.getLogger("log");
     private final Viewable window;
     private final Painter painter;
 
-    public ImageLoader(Viewable window) {
+    public WindowImageLoader(Viewable window) {
         this.window = window;
-        this.painter = window.getPainter();
+        this.painter = Painter.getInstance();
         localizeElements();
     }
 

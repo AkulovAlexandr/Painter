@@ -8,14 +8,13 @@ import java.awt.event.ActionEvent;
 public class ColorBtnListener extends CommonController {
 
     public ColorBtnListener(Viewable window) {
-        super.window = window;
-        super.model = window.getPainter();
+        super(window);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Color clr = ((JButton) e.getSource()).getBackground();
-        model.setInstrumentColor(clr);
+        painter.setInstrumentColor(clr);
         window.getColorPreview().setBackground(clr);
     }
 }

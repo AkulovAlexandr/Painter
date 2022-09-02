@@ -14,7 +14,6 @@ public class ThemeItemListener extends CommonController {
 
     public ThemeItemListener(Viewable window) {
         super.window = window;
-        super.model = window.getPainter();
     }
 
     @Override
