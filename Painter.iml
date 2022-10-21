@@ -11,5 +11,6 @@
     <orderEntry type="library" name="flatlaf-2.3" level="project" />
     <orderEntry type="library" name="flatlaf-intellij-themes-2.4" level="project" />
     <orderEntry type="library" name="log4j-1.2.17" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.30" level="project" />
   </component>
 </module>
